@@ -47,3 +47,11 @@ export const onAuthChanged = (callback: (u: User | null) => void) =>
 
 // Firestore
 const db = getFirestore();
+
+export type Product = {
+	id: number;
+	name: string;
+	price: number;
+	description: string | undefined;
+	image?: string;
+};
