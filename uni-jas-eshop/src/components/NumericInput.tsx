@@ -1,0 +1,58 @@
+import { Box } from '@mui/system';
+import { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+
+const NumericInput = () => {
+	const [val, setVal] = useState<number>(1);
+	const incrVal = () => setVal(val + 1);
+	const decrVal = () => (val > 0 ? setVal(val - 1) : '');
+
+	const style = {
+		alignItems: 'center',
+		backgroundColor: '#f1f1f1',
+		border: '1px solid #cfcfcf',
+		color: '#00af62',
+		cursor: 'pointer',
+		justifyContent: 'center',
+		paddingBottom: '3px'
+	};
+
+	return (
+		<Box
+			component="div"
+			sx={{ display: 'flex', flexDirection: 'row', position: 'relative' }}
+		>
+			<Box
+				component="div"
+				onClick={decrVal}
+				sx={{ ...style, borderRadius: '6px 0 0 6px' }}
+			>
+				<RemoveIcon sx={{ verticalAlign: 'text-top' }} />
+			</Box>
+			<Box
+				component="div"
+				sx={{
+					border: '1px solid #cfcfcf',
+					color: '#6b6b6b',
+					paddingRight: '10px',
+					textAlign: 'right',
+					width: 50,
+					fontSize: '0.9rem',
+					paddingTop: '4px'
+				}}
+			>
+				{val} ks
+			</Box>
+			<Box
+				component="div"
+				onClick={incrVal}
+				sx={{ ...style, borderRadius: '0 6px 6px 0' }}
+			>
+				<AddIcon sx={{ verticalAlign: 'text-top' }} />
+			</Box>
+		</Box>
+	);
+};
+
+export default NumericInput;
