@@ -13,6 +13,7 @@ import {
 	doc,
 	DocumentReference,
 	getFirestore,
+	setDoc,
 	Timestamp
 } from 'firebase/firestore';
 
@@ -30,9 +31,25 @@ initializeApp({
 // Authentication
 const auth = getAuth();
 
+export type UserInfo = {
+	email: string;
+	city: string;
+	houseNumber: string;
+	street: string;
+	postalCode: string;
+	phone: string;
+};
+
 // Sign up handler
 export const signUp = (email: string, password: string) =>
 	createUserWithEmailAndPassword(auth, email, password);
+
+export const saveUserInfo = (props: UserInfo) => {
+	if (!auth.currentUser) {
+		throw 'User now found';
+	}
+	return setDoc(userInfoDocument(auth.currentUser?.uid), props);
+};
 
 // Sign in handler
 export const signIn = (email: string, password: string) =>
@@ -47,6 +64,9 @@ export const onAuthChanged = (callback: (u: User | null) => void) =>
 
 // Firestore
 const db = getFirestore();
+
+export const userInfoDocument = (userId: string) =>
+	doc(db, 'userInfo', userId) as DocumentReference<UserInfo>;
 
 export type Product = {
 	id: number;

@@ -15,6 +15,7 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { getDoc } from 'firebase/firestore';
 
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { signOut } from '../utils/firebase';
