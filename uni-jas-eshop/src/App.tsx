@@ -5,15 +5,18 @@ import { BrowserRouter } from 'react-router-dom';
 import theme from './utils/theme';
 import Layout from './components/Layout';
 import Routes from './components/Routes';
+import { UserProvider } from './hooks/useLoggedInUser';
 
 const App = () => (
 	<ThemeProvider theme={theme}>
-		<BrowserRouter>
-			<CssBaseline />
-			<Layout>
-				<Routes />
-			</Layout>
-		</BrowserRouter>
+		<UserProvider>
+			<BrowserRouter>
+				<CssBaseline />
+				<Layout>
+					<Routes />
+				</Layout>
+			</BrowserRouter>
+		</UserProvider>
 	</ThemeProvider>
 );
 
