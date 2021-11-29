@@ -31,13 +31,18 @@ const Layout: FC = ({ children }) => {
 			<AppBar position="relative">
 				<Container maxWidth="lg">
 					<Toolbar disableGutters sx={{ gap: 2 }} style={{ minHeight: 30 }}>
-						<Button color="secondary" component={Link} to="/">
+						<Button color="inherit" component={Link} to="/">
 							Home
 						</Button>
-						<Button color="secondary" component={Link} to="/products">
+						<Button
+							color="inherit"
+							component={Link}
+							to="/products"
+							variant="text"
+						>
 							Products
 						</Button>
-						<Button color="secondary" component={Link} to="/about">
+						<Button color="inherit" component={Link} to="/about" variant="text">
 							About us
 						</Button>
 						<Box sx={{ flexGrow: 1 }} />
