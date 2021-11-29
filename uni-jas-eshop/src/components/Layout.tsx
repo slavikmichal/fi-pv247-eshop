@@ -19,9 +19,8 @@ import { getDoc } from 'firebase/firestore';
 
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { signOut } from '../utils/firebase';
-
-import { ReactComponent as Logo } from './test_logo.svg';
-import LogInDialog from './LogInDialog';
+import { ReactComponent as CompanyLogo } from '../resources/logo_short.svg';
+// import LogInDialog from './LogInDialog';
 
 const Layout: FC = ({ children }) => {
 	const user = useLoggedInUser();
@@ -60,9 +59,10 @@ const Layout: FC = ({ children }) => {
 				sx={{ marginTop: 5 }}
 				alignItems="center"
 				justifyContent="center"
+				overflow="visible"
 			>
-				<Grid item md={3}>
-					<Logo />
+				<Grid item md={3} sx={{ marginRight: 8 }}>
+					<CompanyLogo style={{ maxHeight: 90 }} />
 				</Grid>
 				<Grid item md={3}>
 					<Paper
@@ -94,7 +94,7 @@ const Layout: FC = ({ children }) => {
 							Login
 						</Button>
 					)}
-					<LogInDialog open={openDialog} onClose={() => setOpenDialog(false)} />
+					{/* <LogInDialog open={openDialog} onClose={() => setOpenDialog(false)} /> */}
 					<Button variant="outlined" startIcon={<ShoppingBasketIcon />}>
 						Basket
 					</Button>
