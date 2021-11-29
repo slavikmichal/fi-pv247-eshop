@@ -8,6 +8,7 @@ import {
 	CardMedia,
 	Grid,
 	Typography,
+	useTheme,
 	Zoom
 } from '@mui/material';
 import { flexbox } from '@mui/system';
@@ -23,6 +24,8 @@ type Props = {
 
 const ProductCard: FC<Props> = ({ product, children }) => {
 	const [isHovering, setIsHovering] = useState(false);
+	const theme = useTheme();
+	const color = theme.palette.mode === 'light' ? 'primary' : 'secondary';
 
 	return (
 		<Grid item md={4} sx={{ marginTop: 2 }}>
@@ -66,9 +69,13 @@ const ProductCard: FC<Props> = ({ product, children }) => {
 						</Typography>
 					</CardContent>
 					<CardActions>
-						<Button size="small">Share</Button>
+						<Button color={color} size="small">
+							Share
+						</Button>
 						<Box sx={{ flexGrow: 1 }} />
-						<Button size="small">Learn More</Button>
+						<Button color={color} size="small">
+							Learn More
+						</Button>
 					</CardActions>
 				</Box>
 			</Card>

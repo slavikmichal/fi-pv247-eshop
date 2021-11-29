@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { useParams } from 'react-router';
 
@@ -8,6 +8,8 @@ import { products } from '../utils/firebase';
 const ProductPage = () => {
 	const { id } = useParams<{ id: string }>();
 	const product = products.find(p => p.id === +id);
+	const theme = useTheme();
+	const color = theme.palette.mode === 'light' ? 'primary' : 'secondary';
 
 	if (!product) {
 		return <Box>Product does not exist.</Box>;
@@ -32,7 +34,7 @@ const ProductPage = () => {
 						<NumericInput />
 					</Grid>
 					<Grid item md={9} sx={{ marginLeft: 2 }}>
-						<Button variant="contained" sx={{ width: 200 }}>
+						<Button color={color} variant="contained" sx={{ width: 200 }}>
 							Add to basket
 						</Button>
 					</Grid>
