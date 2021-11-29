@@ -20,7 +20,8 @@ import { getDoc } from 'firebase/firestore';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { signOut } from '../utils/firebase';
 import { ReactComponent as CompanyLogo } from '../resources/logo_short.svg';
-// import LogInDialog from './LogInDialog';
+
+import LogInDialog from './LogInDialog';
 
 const Layout: FC = ({ children }) => {
 	const user = useLoggedInUser();
@@ -99,7 +100,7 @@ const Layout: FC = ({ children }) => {
 							Login
 						</Button>
 					)}
-					{/* <LogInDialog open={openDialog} onClose={() => setOpenDialog(false)} /> */}
+					<LogInDialog open={openDialog} onClose={() => setOpenDialog(false)} />
 					<Button variant="outlined" startIcon={<ShoppingBasketIcon />}>
 						Basket
 					</Button>
