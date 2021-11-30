@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 import {
 	getAuth,
 	createUserWithEmailAndPassword,
@@ -64,6 +65,9 @@ export const onAuthChanged = (callback: (u: User | null) => void) =>
 
 // Firestore
 const db = getFirestore();
+
+const storage = getStorage();
+export const productsRef = ref(storage, 'products/');
 
 export const userInfoDocument = (userId: string) =>
 	doc(db, 'userInfo', userId) as DocumentReference<UserInfo>;

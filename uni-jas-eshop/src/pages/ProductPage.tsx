@@ -1,6 +1,7 @@
 import { Button, Grid, Typography, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { getDoc, onSnapshot } from 'firebase/firestore';
+import { ref, getDownloadURL } from 'firebase/storage';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
@@ -8,7 +9,8 @@ import NumericInput from '../components/NumericInput';
 import {
 	Product,
 	productDocument,
-	productsCollection
+	productsCollection,
+	productsRef
 } from '../utils/firebase';
 
 const ProductPage = () => {
@@ -36,11 +38,12 @@ const ProductPage = () => {
 	return (
 		<Grid container>
 			<Grid item md={7}>
-				{/* <img
-					src={`/resources/${product.image}`}
-					alt={product.name}
+				<img
+					id="product_img"
+					src={`/resources/products/${product.id}.jpg`}
+					alt={product['name-en']}
 					style={{ objectFit: 'contain', width: '95%' }}
-				/> */}
+				/>
 			</Grid>
 			<Grid item md={5}>
 				<Typography variant="h3" sx={{ marginBottom: 4 }}>
