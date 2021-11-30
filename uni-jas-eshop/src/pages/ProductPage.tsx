@@ -15,6 +15,9 @@ import {
 
 const ProductPage = () => {
 	const [products, setProducts] = useState<Product[]>([]);
+	const [amount, setAmount] = useState<number>(1);
+
+	const onAmountChange = (val: number) => setAmount(val);
 
 	useEffect(() => {
 		const unsubscribe = onSnapshot(productsCollection, snapshot => {
@@ -52,7 +55,7 @@ const ProductPage = () => {
 				<Typography variant="h4">{product['price-vat']} €</Typography>
 				<Grid container sx={{ marginY: 1 }}>
 					<Grid item>
-						<NumericInput />
+						<NumericInput onChange={onAmountChange} />
 					</Grid>
 					<Grid item md={9} sx={{ marginLeft: 2 }}>
 						<Button color={color} variant="contained" sx={{ width: 200 }}>

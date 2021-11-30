@@ -1,12 +1,26 @@
 import { Box } from '@mui/system';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-const NumericInput = () => {
+type Props = {
+	onChange: (val: number) => void;
+};
+
+const NumericInput: FC<Props> = props => {
+	const { onChange } = props;
+
 	const [val, setVal] = useState<number>(1);
-	const incrVal = () => setVal(val + 1);
-	const decrVal = () => (val > 0 ? setVal(val - 1) : '');
+	const incrVal = () => {
+		setVal(val + 1);
+		onChange(val + 1);
+	};
+	const decrVal = () => {
+		if (val > 0) {
+			setVal(val - 1);
+			onChange(val - 1);
+		}
+	};
 
 	const style = {
 		alignItems: 'center',
@@ -25,7 +39,9 @@ const NumericInput = () => {
 		>
 			<Box
 				component="div"
-				onClick={decrVal}
+				onClick={() => {
+					decrVal();
+				}}
 				sx={{ ...style, borderRadius: '6px 0 0 6px' }}
 			>
 				<RemoveIcon sx={{ verticalAlign: 'text-top' }} />
@@ -46,7 +62,9 @@ const NumericInput = () => {
 			</Box>
 			<Box
 				component="div"
-				onClick={incrVal}
+				onClick={() => {
+					incrVal();
+				}}
 				sx={{ ...style, borderRadius: '0 6px 6px 0' }}
 			>
 				<AddIcon sx={{ verticalAlign: 'text-top' }} />
