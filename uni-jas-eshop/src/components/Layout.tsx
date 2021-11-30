@@ -91,12 +91,12 @@ const Layout: FC = ({ children }) => {
 				justifyContent="center"
 				overflow="visible"
 			>
-				<Grid item md={3} sx={{ marginRight: 8 }}>
+				<Grid item md={3} sx={{ margin: 2 }}>
 					{theme.palette.mode === 'light' ? (
 						<LogoLight style={{ maxHeight: 90 }} />
 					) : (
 						// TODO: add dark logo after correcting svg
-						<LogoLight style={{ maxHeight: 90 }} />
+						<LogoDark style={{ maxHeight: 90 }} />
 					)}
 				</Grid>
 				<Grid item md={3}>
