@@ -45,13 +45,9 @@ const ProductCard: FC<Props> = ({ product, children }) => {
 					<Box component="div" sx={{ overflow: 'hidden' }}>
 						<CardMedia
 							component="img"
-							alt={product.name ?? 'No image found'}
+							alt={product['name-en'] ?? 'No image found'}
 							height="250"
-							image={
-								product.image
-									? `/resources/${product.image}`
-									: '/resources/placeholder.png'
-							}
+							image="/resources/placeholder.png"
 							style={{
 								objectFit: 'contain',
 								transform: isHovering ? `scale3d(1.3, 1.3, 1)` : '',
@@ -61,11 +57,11 @@ const ProductCard: FC<Props> = ({ product, children }) => {
 					</Box>
 					<CardContent>
 						<Typography gutterBottom variant="h5" component="div">
-							{product.name}
+							{product['name-en']}
 						</Typography>
-						<Typography variant="body2" color="text.secondary">
-							{product.description}
-						</Typography>
+						{/* <Typography variant="body2" color="text.secondary">
+							{product?.description}
+						</Typography> */}
 					</CardContent>
 					<CardActions>
 						<Button color={color} size="small">

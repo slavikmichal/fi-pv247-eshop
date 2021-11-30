@@ -1,13 +1,31 @@
 import { Button, Grid, Typography, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
+import { getDoc, onSnapshot } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 import NumericInput from '../components/NumericInput';
-import { products } from '../utils/firebase';
+import {
+	Product,
+	productDocument,
+	productsCollection
+} from '../utils/firebase';
 
 const ProductPage = () => {
+	const [products, setProducts] = useState<Product[]>([]);
+
+	useEffect(() => {
+		const unsubscribe = onSnapshot(productsCollection, snapshot => {
+			setProducts(snapshot.docs.map(doc => doc.data()));
+		});
+		return () => {
+			unsubscribe();
+		};
+	}, []);
+
 	const { id } = useParams<{ id: string }>();
-	const product = products.find(p => p.id === +id);
+	// const productSnap = await getDoc<Product>(productDocument(id));
+	const product = products.find(p => p.id === id);
 	const theme = useTheme();
 	const color = theme.palette.mode === 'light' ? 'primary' : 'secondary';
 
@@ -18,17 +36,17 @@ const ProductPage = () => {
 	return (
 		<Grid container>
 			<Grid item md={7}>
-				<img
+				{/* <img
 					src={`/resources/${product.image}`}
 					alt={product.name}
 					style={{ objectFit: 'contain', width: '95%' }}
-				/>
+				/> */}
 			</Grid>
 			<Grid item md={5}>
 				<Typography variant="h3" sx={{ marginBottom: 4 }}>
-					{product.name}
+					{product['name-en']}
 				</Typography>
-				<Typography variant="h4">{product.price} €</Typography>
+				<Typography variant="h4">{product['price-vat']} €</Typography>
 				<Grid container sx={{ marginY: 1 }}>
 					<Grid item>
 						<NumericInput />
@@ -39,7 +57,7 @@ const ProductPage = () => {
 						</Button>
 					</Grid>
 				</Grid>
-				<Typography variant="body1">{product.description}</Typography>
+				{/* <Typography variant="body1">{product.description}</Typography> */}
 			</Grid>
 		</Grid>
 	);
