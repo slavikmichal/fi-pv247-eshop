@@ -16,7 +16,6 @@ import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Product } from '../utils/firebase';
-import theme from '../utils/theme';
 
 type Props = {
 	product: Product;
