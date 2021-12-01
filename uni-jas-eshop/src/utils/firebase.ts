@@ -11,8 +11,10 @@ import {
 import {
 	collection,
 	CollectionReference,
+	deleteDoc,
 	doc,
 	DocumentReference,
+	getDoc,
 	getFirestore,
 	setDoc,
 	Timestamp
@@ -86,7 +88,50 @@ export const productsCollection = collection(
 ) as CollectionReference<Product>;
 
 export const productDocument = (id: string) =>
-	doc(db, 'product', id) as DocumentReference<Product>;
+	doc(db, 'products', id) as DocumentReference<Product>;
+
+export type BasketProduct = {
+	user_id: string;
+	product_id: string;
+	amount: number;
+};
+
+export const BasketProductDocument = (userId: string, productId: string) =>
+	doc(db, 'basket', userId + productId) as DocumentReference<BasketProduct>;
+
+export const basketCollection = collection(
+	db,
+	'basket'
+) as CollectionReference<BasketProduct>;
+
+export const addProductToBasket = async (
+	userId: string,
+	productId: string,
+	amount: number
+) => {
+	const basketProdDoc = BasketProductDocument(userId, productId);
+	const docSnap = await getDoc(basketProdDoc);
+	if (docSnap.exists()) {
+		return setDoc(basketProdDoc, {
+			user_id: userId,
+			product_id: productId,
+			amount: amount + docSnap.data().amount
+		});
+	}
+	return setDoc(basketProdDoc, {
+		user_id: userId,
+		product_id: productId,
+		amount
+	});
+};
+
+export const removeProductFromBasket = (userId: string, productId: string) =>
+	deleteDoc(BasketProductDocument(userId, productId));
+
+export const getProduct = async (productId: string) => {
+	const snap = await getDoc(productDocument(productId));
+	return snap.data();
+};
 
 export const getUrl = async (id: string) =>
 	await getDownloadURL(ref(productsRef, `${id}.jpg`));

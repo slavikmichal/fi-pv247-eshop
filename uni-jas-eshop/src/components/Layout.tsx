@@ -27,10 +27,12 @@ import { ReactComponent as LogoLight } from '../resources/logo_light.svg';
 import { ReactComponent as LogoDark } from '../resources/logo_dark.svg';
 
 import LogInDialog from './LogInDialog';
+import BasketDialog from './BasketDialog';
 
 const Layout: FC = ({ children }) => {
 	const user = useLoggedInUser();
 	const [openDialog, setOpenDialog] = useState<boolean>(false);
+	const [openBasketDialog, setOpenBasketDialog] = useState<boolean>(false);
 	const theme = useTheme();
 	const change_theme = (theme: Theme) => {
 		theme.palette.mode === 'light'
@@ -134,9 +136,14 @@ const Layout: FC = ({ children }) => {
 						color={color}
 						variant="outlined"
 						startIcon={<ShoppingBasketIcon />}
+						onClick={() => setOpenBasketDialog(true)}
 					>
 						Basket
 					</Button>
+					<BasketDialog
+						open={openBasketDialog}
+						onClose={() => setOpenBasketDialog(false)}
+					/>
 				</Grid>
 			</Grid>
 

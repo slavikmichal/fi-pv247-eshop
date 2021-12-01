@@ -6,16 +6,19 @@ import theme from './utils/theme';
 import Layout from './components/Layout';
 import Routes from './components/Routes';
 import { UserProvider } from './hooks/useLoggedInUser';
+import { BasketProvider } from './hooks/useShoppingBasket';
 
 const App = () => (
 	<ThemeProvider theme={theme}>
 		<UserProvider>
-			<BrowserRouter>
-				<CssBaseline />
-				<Layout>
-					<Routes />
-				</Layout>
-			</BrowserRouter>
+			<BasketProvider>
+				<BrowserRouter>
+					<CssBaseline />
+					<Layout>
+						<Routes />
+					</Layout>
+				</BrowserRouter>
+			</BasketProvider>
 		</UserProvider>
 	</ThemeProvider>
 );

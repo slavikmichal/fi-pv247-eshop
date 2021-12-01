@@ -4,21 +4,26 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 type Props = {
-	onChange: (val: number) => void;
+	onChange?: (val: number) => void;
+	initVal?: number;
 };
 
 const NumericInput: FC<Props> = props => {
-	const { onChange } = props;
+	const { onChange, initVal } = props;
 
-	const [val, setVal] = useState<number>(1);
+	const [val, setVal] = useState<number>(initVal ?? 1);
 	const incrVal = () => {
 		setVal(val + 1);
-		onChange(val + 1);
+		if (onChange) {
+			onChange(val + 1);
+		}
 	};
 	const decrVal = () => {
 		if (val > 0) {
 			setVal(val - 1);
-			onChange(val - 1);
+			if (onChange) {
+				onChange(val - 1);
+			}
 		}
 	};
 
