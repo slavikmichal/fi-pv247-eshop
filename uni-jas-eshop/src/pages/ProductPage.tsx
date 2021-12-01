@@ -6,7 +6,10 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 import NumericInput from '../components/NumericInput';
+import useLoggedInUser from '../hooks/useLoggedInUser';
+import useShoppingBasket from '../hooks/useShoppingBasket';
 import {
+	addProductToBasket,
 	Product,
 	productDocument,
 	productsCollection,
@@ -16,6 +19,7 @@ import {
 const ProductPage = () => {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [amount, setAmount] = useState<number>(1);
+	const user = useLoggedInUser();
 
 	const onAmountChange = (val: number) => setAmount(val);
 
@@ -58,7 +62,14 @@ const ProductPage = () => {
 						<NumericInput onChange={onAmountChange} />
 					</Grid>
 					<Grid item md={9} sx={{ marginLeft: 2 }}>
-						<Button color={color} variant="contained" sx={{ width: 200 }}>
+						<Button
+							color={color}
+							variant="contained"
+							sx={{ width: 200 }}
+							onClick={() =>
+								addProductToBasket(user?.uid ?? '', product.id, amount)
+							}
+						>
 							Add to basket
 						</Button>
 					</Grid>
