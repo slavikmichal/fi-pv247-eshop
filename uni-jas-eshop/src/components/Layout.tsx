@@ -95,7 +95,6 @@ const Layout: FC = ({ children }) => {
 					{theme.palette.mode === 'light' ? (
 						<LogoLight style={{ maxHeight: 90 }} />
 					) : (
-						// TODO: add dark logo after correcting svg
 						<LogoDark style={{ maxHeight: 90 }} />
 					)}
 				</Grid>
