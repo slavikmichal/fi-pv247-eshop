@@ -18,8 +18,15 @@ import {
 
 const ProductPage = () => {
 	const [products, setProducts] = useState<Product[]>([]);
+	const [imgUrl, setImgUrl] = useState<string>('');
 	const [amount, setAmount] = useState<number>(1);
 	const user = useLoggedInUser();
+
+	const { id } = useParams<{ id: string }>();
+	// const productSnap = await getDoc<Product>(productDocument(id));
+	const product = products.find(p => p.id === id);
+	const theme = useTheme();
+	const color = theme.palette.mode === 'light' ? 'primary' : 'secondary';
 
 	const onAmountChange = (val: number) => setAmount(val);
 
@@ -32,11 +39,18 @@ const ProductPage = () => {
 		};
 	}, []);
 
-	const { id } = useParams<{ id: string }>();
-	// const productSnap = await getDoc<Product>(productDocument(id));
-	const product = products.find(p => p.id === id);
-	const theme = useTheme();
-	const color = theme.palette.mode === 'light' ? 'primary' : 'secondary';
+	useEffect(() => {
+		const getImgUrl = async () => {
+			let url: string;
+			if (!product) {
+				url = '/resources/placeholder.jpg';
+			} else {
+				url = url = await getDownloadURL(ref(productsRef, `${product.id}.jpg`));
+			}
+			setImgUrl(url);
+		};
+		getImgUrl();
+	}, []);
 
 	if (!product) {
 		return <Box>Product does not exist.</Box>;
@@ -47,7 +61,8 @@ const ProductPage = () => {
 			<Grid item md={7}>
 				<img
 					id="product_img"
-					src={`/resources/products/${product.id}.jpg`}
+					// src={`/resources/products/${product.id}.jpg`}
+					src={imgUrl}
 					alt={product['name-en']}
 					style={{ objectFit: 'contain', width: '95%' }}
 				/>
