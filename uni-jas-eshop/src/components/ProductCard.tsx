@@ -67,7 +67,7 @@ const ProductCard: FC<Props> = ({ product, children }) => {
 							}}
 						/>
 					</Box>
-					<CardContent>
+					<CardContent sx={{ height: 100 }}>
 						<Typography gutterBottom variant="h5" component="div">
 							{product['name-en']}
 						</Typography>
@@ -75,15 +75,6 @@ const ProductCard: FC<Props> = ({ product, children }) => {
 							{product?.description}
 						</Typography> */}
 					</CardContent>
-					<CardActions>
-						<Button color={color} size="small">
-							Share
-						</Button>
-						<Box sx={{ flexGrow: 1 }} />
-						<Button color={color} size="small">
-							Learn More
-						</Button>
-					</CardActions>
 				</Box>
 			</Card>
 		</Grid>

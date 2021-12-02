@@ -17,9 +17,17 @@ type Props = {
 	productId: string;
 	amount: number;
 	onRemoved: () => void;
+	onIncr?: () => void;
+	onDecr?: () => void;
 };
 
-const BasketProduct: FC<Props> = ({ productId, amount, onRemoved }) => {
+const BasketProduct: FC<Props> = ({
+	productId,
+	amount,
+	onRemoved,
+	onIncr,
+	onDecr
+}) => {
 	const [product, setProduct] = useState<Product>();
 	const user = useLoggedInUser();
 
@@ -60,7 +68,7 @@ const BasketProduct: FC<Props> = ({ productId, amount, onRemoved }) => {
 						alignItems: 'center'
 					}}
 				>
-					<NumericInput initVal={amount} />
+					<NumericInput initVal={amount} onIncr={onIncr} onDecr={onDecr} />
 				</Grid>
 				<Grid
 					item

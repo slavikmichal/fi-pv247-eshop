@@ -104,24 +104,54 @@ export const basketCollection = collection(
 	'basket'
 ) as CollectionReference<BasketProduct>;
 
+const getAmountOfProdInBasket = async (userId: string, productId: string) => {
+	const basketProdDoc = BasketProductDocument(userId, productId);
+	const docSnap = await getDoc(basketProdDoc);
+	if (docSnap.exists()) {
+		return docSnap.data().amount;
+	}
+	return 0;
+};
 export const addProductToBasket = async (
 	userId: string,
 	productId: string,
 	amount: number
 ) => {
+	const amountInBasket = await getAmountOfProdInBasket(userId, productId);
 	const basketProdDoc = BasketProductDocument(userId, productId);
-	const docSnap = await getDoc(basketProdDoc);
-	if (docSnap.exists()) {
-		return setDoc(basketProdDoc, {
-			user_id: userId,
-			product_id: productId,
-			amount: amount + docSnap.data().amount
-		});
+	return setDoc(basketProdDoc, {
+		user_id: userId,
+		product_id: productId,
+		amount: amount + amountInBasket
+	});
+};
+
+export const incrProductInBasket = async (
+	userId: string,
+	productId: string
+) => {
+	const amountInBasket = await getAmountOfProdInBasket(userId, productId);
+	const basketProdDoc = BasketProductDocument(userId, productId);
+	return setDoc(basketProdDoc, {
+		user_id: userId,
+		product_id: productId,
+		amount: amountInBasket + 1
+	});
+};
+
+export const decrProductInBasket = async (
+	userId: string,
+	productId: string
+) => {
+	const amountInBasket = await getAmountOfProdInBasket(userId, productId);
+	const basketProdDoc = BasketProductDocument(userId, productId);
+	if (amountInBasket < 2) {
+		return removeProductFromBasket(userId, productId);
 	}
 	return setDoc(basketProdDoc, {
 		user_id: userId,
 		product_id: productId,
-		amount
+		amount: amountInBasket - 1
 	});
 };
 
