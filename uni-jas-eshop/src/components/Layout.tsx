@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
 	AppBar,
@@ -11,7 +11,10 @@ import {
 	Paper,
 	InputBase,
 	useTheme,
-	Theme
+	Theme,
+	Snackbar,
+	Alert,
+	AlertColor
 } from '@mui/material';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import SearchIcon from '@mui/icons-material/Search';
@@ -25,14 +28,18 @@ import useLoggedInUser from '../hooks/useLoggedInUser';
 import { signOut } from '../utils/firebase';
 import { ReactComponent as LogoLight } from '../resources/logo_light.svg';
 import { ReactComponent as LogoDark } from '../resources/logo_dark.svg';
+import { useSnackState } from '../hooks/useSnack';
 
 import LogInDialog from './LogInDialog';
 import BasketDialog from './BasketDialog';
+import Snack from './Snack';
 
 const Layout: FC = ({ children }) => {
 	const user = useLoggedInUser();
 	const [openDialog, setOpenDialog] = useState<boolean>(false);
 	const [openBasketDialog, setOpenBasketDialog] = useState<boolean>(false);
+	const snackState = useSnackState();
+
 	const theme = useTheme();
 	const change_theme = (theme: Theme) => {
 		theme.palette.mode === 'light'
@@ -46,6 +53,7 @@ const Layout: FC = ({ children }) => {
 
 	return (
 		<>
+			{snackState && <Snack {...snackState} />}
 			<AppBar position="relative">
 				<Container maxWidth="lg">
 					<Toolbar disableGutters sx={{ gap: 2 }} style={{ minHeight: 30 }}>
