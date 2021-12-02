@@ -41,12 +41,10 @@ const ProductPage = () => {
 
 	useEffect(() => {
 		const getImgUrl = async () => {
-			let url: string;
-			if (!product) {
-				url = '/resources/placeholder.jpg';
-			} else {
-				url = url = await getDownloadURL(ref(productsRef, `${product.id}.jpg`));
-			}
+			const url: string = !product
+				? '/resources/placeholder.jpg'
+				: await getDownloadURL(ref(productsRef, `${product.id}.jpg`));
+
 			setImgUrl(url);
 		};
 		getImgUrl();
