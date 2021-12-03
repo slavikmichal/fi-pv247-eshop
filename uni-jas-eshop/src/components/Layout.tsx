@@ -1,4 +1,4 @@
-import { FC, FormEvent, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
 	AppBar,
@@ -11,16 +11,12 @@ import {
 	Paper,
 	InputBase,
 	useTheme,
-	Theme,
-	Snackbar,
-	Alert,
-	AlertColor
+	Theme
 } from '@mui/material';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { getDoc } from 'firebase/firestore';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
@@ -29,27 +25,22 @@ import { signOut } from '../utils/firebase';
 import { ReactComponent as LogoLight } from '../resources/logo_light.svg';
 import { ReactComponent as LogoDark } from '../resources/logo_dark.svg';
 import { useSnackState } from '../hooks/useSnack';
+import { lightTheme, darkTheme } from '../utils/theme';
 
 import LogInDialog from './LogInDialog';
 import BasketDialog from './BasketDialog';
 import Snack from './Snack';
 
-const Layout: FC = ({ children }) => {
+type Props = {
+	setTheme: React.Dispatch<React.SetStateAction<Theme>>;
+};
+
+const Layout: FC<Props> = ({ setTheme, children }) => {
 	const user = useLoggedInUser();
 	const [openDialog, setOpenDialog] = useState<boolean>(false);
 	const [openBasketDialog, setOpenBasketDialog] = useState<boolean>(false);
 	const snackState = useSnackState();
-
 	const theme = useTheme();
-	const change_theme = (theme: Theme) => {
-		theme.palette.mode === 'light'
-			? (theme.palette.mode = 'dark')
-			: (theme.palette.mode = 'light');
-	};
-
-	const light_mode = theme.palette.mode === 'light';
-	const app_bar_color = light_mode ? 'inherit' : 'secondary';
-	const color = light_mode ? 'primary' : 'secondary';
 
 	return (
 		<>
@@ -57,18 +48,13 @@ const Layout: FC = ({ children }) => {
 			<AppBar position="relative">
 				<Container maxWidth="lg">
 					<Toolbar disableGutters sx={{ gap: 2 }} style={{ minHeight: 30 }}>
-						<Button color={app_bar_color} component={Link} to="/">
+						<Button color="inherit" component={Link} to="/">
 							Home
 						</Button>
-						<Button color={app_bar_color} component={Link} to="/products">
+						<Button color="inherit" component={Link} to="/products">
 							Products
 						</Button>
-						<Button
-							color={app_bar_color}
-							component={Link}
-							to="/about"
-							variant="text"
-						>
+						<Button color="inherit" component={Link} to="/about" variant="text">
 							About us
 						</Button>
 						<Box sx={{ flexGrow: 1 }} />
@@ -80,12 +66,12 @@ const Layout: FC = ({ children }) => {
 								</IconButton>
 							</Box>
 						)}
-						{light_mode ? (
-							<IconButton onClick={() => change_theme(theme)}>
+						{theme.palette.mode === 'light' ? (
+							<IconButton onClick={() => setTheme(darkTheme)}>
 								<DarkModeIcon />
 							</IconButton>
 						) : (
-							<IconButton onClick={() => change_theme(theme)}>
+							<IconButton onClick={() => setTheme(lightTheme)}>
 								<LightModeIcon />
 							</IconButton>
 						)}
@@ -130,7 +116,6 @@ const Layout: FC = ({ children }) => {
 				<Grid item md={3} sx={{ textAlign: 'right' }}>
 					{!user && (
 						<Button
-							color={color}
 							variant="outlined"
 							startIcon={<PersonIcon />}
 							sx={{ marginRight: 1 }}
@@ -141,7 +126,6 @@ const Layout: FC = ({ children }) => {
 					)}
 					<LogInDialog open={openDialog} onClose={() => setOpenDialog(false)} />
 					<Button
-						color={color}
 						variant="outlined"
 						startIcon={<ShoppingBasketIcon />}
 						onClick={() => setOpenBasketDialog(true)}
