@@ -10,12 +10,7 @@ import {
 	useState
 } from 'react';
 
-import {
-	addProductToBasket,
-	basketCollection,
-	BasketProduct,
-	removeProductFromBasket
-} from '../utils/firebase';
+import { basketCollection, BasketProduct } from '../utils/firebase';
 
 import useLoggedInUser from './useLoggedInUser';
 

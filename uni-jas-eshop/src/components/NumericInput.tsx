@@ -14,6 +14,7 @@ const NumericInput: FC<Props> = props => {
 	const { onChange, initVal, onIncr, onDecr } = props;
 
 	const [val, setVal] = useState<number>(initVal ?? 1);
+
 	const incrVal = () => {
 		setVal(val + 1);
 		if (onChange) {
@@ -52,9 +53,7 @@ const NumericInput: FC<Props> = props => {
 		>
 			<Box
 				component="div"
-				onClick={() => {
-					decrVal();
-				}}
+				onClick={decrVal}
 				sx={{ ...style, borderRadius: '6px 0 0 6px' }}
 			>
 				<RemoveIcon sx={{ verticalAlign: 'text-top' }} />
@@ -75,9 +74,7 @@ const NumericInput: FC<Props> = props => {
 			</Box>
 			<Box
 				component="div"
-				onClick={() => {
-					incrVal();
-				}}
+				onClick={incrVal}
 				sx={{ ...style, borderRadius: '0 6px 6px 0' }}
 			>
 				<AddIcon sx={{ verticalAlign: 'text-top' }} />

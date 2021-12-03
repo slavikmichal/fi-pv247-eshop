@@ -16,8 +16,7 @@ import {
 	DocumentReference,
 	getDoc,
 	getFirestore,
-	setDoc,
-	Timestamp
+	setDoc
 } from 'firebase/firestore';
 
 // Initialize Firebase

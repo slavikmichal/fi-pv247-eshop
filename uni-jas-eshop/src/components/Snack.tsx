@@ -1,5 +1,5 @@
 import { Alert, AlertColor, IconButton, Snackbar } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 
 type Props = {

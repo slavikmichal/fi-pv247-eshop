@@ -1,5 +1,4 @@
 import { Grid, IconButton, Paper, Typography } from '@mui/material';
-import { Box } from '@mui/system';
 import { FC, useEffect, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -9,7 +8,6 @@ import {
 	Product,
 	removeProductFromBasket
 } from '../utils/firebase';
-import { useSetSnack } from '../hooks/useSnack';
 import useImage from '../hooks/useImage';
 
 import NumericInput from './NumericInput';
@@ -41,12 +39,15 @@ const BasketProduct: FC<Props> = ({
 		getProd();
 	}, []);
 
-	const removeProduct = () => {
-		if (!user || !product) {
-			return;
+	const removeProduct = async () => {
+		if (user && product) {
+			try {
+				await removeProductFromBasket(user.uid, product.id);
+				onRemoved();
+			} catch {
+				console.log('error while removing product from the basket');
+			}
 		}
-		removeProductFromBasket(user.uid, product.id);
-		onRemoved();
 	};
 
 	return (

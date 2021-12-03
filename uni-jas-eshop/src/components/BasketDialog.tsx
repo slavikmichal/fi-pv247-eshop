@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogTitle, Paper } from '@mui/material';
+import { Dialog, DialogTitle, Paper } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 
 import useLoggedInUser from '../hooks/useLoggedInUser';
@@ -15,11 +15,13 @@ type BasketDialogProps = {
 
 const BasketDialog: FC<BasketDialogProps> = props => {
 	const { open, onClose } = props;
+
 	const basketProducts = useShoppingBasket();
-	const [removed, setRemoved] = useState<boolean>(false);
-	const [added, setAdded] = useState<boolean>(false);
 	const setSnack = useSetSnack();
 	const user = useLoggedInUser();
+
+	const [removed, setRemoved] = useState<boolean>(false);
+	const [added, setAdded] = useState<boolean>(false);
 
 	useEffect(() => {
 		setSnack({
@@ -39,25 +41,23 @@ const BasketDialog: FC<BasketDialogProps> = props => {
 	}, [added]);
 
 	const handleIncrement = async (productId: string) => {
-		if (!user) {
-			return;
-		}
-		try {
-			await incrProductInBasket(user.uid, productId);
-			setAdded(true);
-		} catch {
-			console.log('error while incrementing product in basket');
+		if (user) {
+			try {
+				await incrProductInBasket(user.uid, productId);
+				setAdded(true);
+			} catch {
+				console.log('error while incrementing product in basket');
+			}
 		}
 	};
 	const handleDecrement = async (productId: string) => {
-		if (!user) {
-			return;
-		}
-		try {
-			await decrProductInBasket(user.uid, productId);
-			setRemoved(true);
-		} catch {
-			console.log('error while decrementing product in basket');
+		if (user) {
+			try {
+				await decrProductInBasket(user.uid, productId);
+				setRemoved(true);
+			} catch {
+				console.log('error while decrementing product in basket');
+			}
 		}
 	};
 
