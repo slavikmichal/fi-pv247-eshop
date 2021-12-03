@@ -7,6 +7,7 @@ import { useParams } from 'react-router';
 
 import NumericInput from '../components/NumericInput';
 import Snack from '../components/Snack';
+import useImage from '../hooks/useImage';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import useShoppingBasket from '../hooks/useShoppingBasket';
 import { useSetSnack } from '../hooks/useSnack';
@@ -19,14 +20,14 @@ import {
 } from '../utils/firebase';
 
 const ProductPage = () => {
+	const { id } = useParams<{ id: string }>();
+
 	const [products, setProducts] = useState<Product[]>([]);
-	const [imgUrl, setImgUrl] = useState<string>('');
 	const [amount, setAmount] = useState<number>(1);
 	const [added, setAdded] = useState<boolean>(false);
 	const user = useLoggedInUser();
 	const setSnackState = useSetSnack();
-
-	const { id } = useParams<{ id: string }>();
+	const imgUrl = useImage(id);
 
 	const product = products.find(p => p.id === id);
 	const theme = useTheme();
@@ -50,17 +51,6 @@ const ProductPage = () => {
 		return () => {
 			unsubscribe();
 		};
-	}, []);
-
-	useEffect(() => {
-		const getImgUrl = async () => {
-			const productSnap = await getDoc<Product>(productDocument(id));
-			const url: string = await getDownloadURL(
-				ref(productsRef, `${productSnap.get('id')}.jpg`)
-			);
-			setImgUrl(url);
-		};
-		getImgUrl();
 	}, []);
 
 	if (!product) {

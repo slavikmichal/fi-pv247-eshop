@@ -17,6 +17,7 @@ import { ref } from 'firebase/storage';
 import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import useImage from '../hooks/useImage';
 import { Product, productsRef } from '../utils/firebase';
 
 type Props = {
@@ -25,17 +26,9 @@ type Props = {
 
 const ProductCard: FC<Props> = ({ product, children }) => {
 	const [isHovering, setIsHovering] = useState(false);
-	const [imgUrl, setImgUrl] = useState<string>('');
+	const imgUrl = useImage(product.id);
 	const theme = useTheme();
 	const color = theme.palette.mode === 'light' ? 'primary' : 'secondary';
-
-	useEffect(() => {
-		const getImgUrl = async () => {
-			const url = await getDownloadURL(ref(productsRef, `${product.id}.jpg`));
-			setImgUrl(url);
-		};
-		getImgUrl();
-	}, []);
 
 	return (
 		<Grid item md={4} sx={{ marginTop: 2 }}>
