@@ -10,19 +10,19 @@ import { Link } from 'react-router-dom';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { FC } from 'react';
 
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { signOut } from '../utils/firebase';
+import { lightTheme, darkTheme } from '../utils/theme';
 
-const MyToolbar = () => {
+type Props = {
+	setTheme: React.Dispatch<React.SetStateAction<Theme>>;
+};
+
+const MyToolbar: FC<Props> = ({ setTheme, children }) => {
 	const theme = useTheme();
 	const user = useLoggedInUser();
-
-	const change_theme = (theme: Theme) => {
-		theme.palette.mode === 'light'
-			? (theme.palette.mode = 'dark')
-			: (theme.palette.mode = 'light');
-	};
 
 	const light_mode = theme.palette.mode === 'light';
 	const app_bar_color = light_mode ? 'inherit' : 'secondary';
@@ -48,11 +48,11 @@ const MyToolbar = () => {
 				</Box>
 			)}
 			{light_mode ? (
-				<IconButton onClick={() => change_theme(theme)}>
+				<IconButton onClick={() => setTheme(darkTheme)}>
 					<DarkModeIcon />
 				</IconButton>
 			) : (
-				<IconButton onClick={() => change_theme(theme)}>
+				<IconButton onClick={() => setTheme(lightTheme)}>
 					<LightModeIcon />
 				</IconButton>
 			)}

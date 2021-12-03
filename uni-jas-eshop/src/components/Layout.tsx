@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { AppBar, Container } from '@mui/material';
+import { AppBar, Container, Theme } from '@mui/material';
 
 import { useSnackState } from '../hooks/useSnack';
 import { lightTheme, darkTheme } from '../utils/theme';
@@ -8,7 +8,11 @@ import Snack from './Snack';
 import MyToolbar from './MyToolbar';
 import MainHeader from './MainHeader';
 
-const Layout: FC = ({ children }) => {
+type Props = {
+	setTheme: React.Dispatch<React.SetStateAction<Theme>>;
+};
+
+const Layout: FC<Props> = ({ setTheme, children }) => {
 	const snackState = useSnackState();
 
 	return (
@@ -16,7 +20,7 @@ const Layout: FC = ({ children }) => {
 			{snackState && <Snack {...snackState} />}
 			<AppBar position="relative">
 				<Container maxWidth="lg">
-					<MyToolbar />
+					<MyToolbar setTheme={setTheme} />
 				</Container>
 			</AppBar>
 
