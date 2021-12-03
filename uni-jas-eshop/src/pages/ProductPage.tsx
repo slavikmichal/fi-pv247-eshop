@@ -6,8 +6,10 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 import NumericInput from '../components/NumericInput';
+import Snack from '../components/Snack';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import useShoppingBasket from '../hooks/useShoppingBasket';
+import { useSetSnack } from '../hooks/useSnack';
 import {
 	addProductToBasket,
 	Product,
@@ -20,7 +22,9 @@ const ProductPage = () => {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [imgUrl, setImgUrl] = useState<string>('');
 	const [amount, setAmount] = useState<number>(1);
+	const [added, setAdded] = useState<boolean>(false);
 	const user = useLoggedInUser();
+	const setSnackState = useSetSnack();
 
 	const { id } = useParams<{ id: string }>();
 
@@ -29,6 +33,15 @@ const ProductPage = () => {
 	const color = theme.palette.mode === 'light' ? 'primary' : 'secondary';
 
 	const onAmountChange = (val: number) => setAmount(val);
+
+	useEffect(() => {
+		setSnackState({
+			openInit: added,
+			severity: 'success',
+			text: 'Product was added to the basket',
+			onClose: () => setAdded(false)
+		});
+	}, [added]);
 
 	useEffect(() => {
 		const unsubscribe = onSnapshot(productsCollection, snapshot => {
@@ -78,9 +91,14 @@ const ProductPage = () => {
 							color={color}
 							variant="contained"
 							sx={{ width: 200 }}
-							onClick={() =>
-								addProductToBasket(user?.uid ?? '', product.id, amount)
-							}
+							onClick={async () => {
+								try {
+									await addProductToBasket(user?.uid ?? '', product.id, amount);
+									setAdded(true);
+								} catch {
+									console.log('Error while adding product to the basket');
+								}
+							}}
 						>
 							Add to basket
 						</Button>

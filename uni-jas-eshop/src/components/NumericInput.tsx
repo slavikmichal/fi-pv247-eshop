@@ -6,10 +6,12 @@ import RemoveIcon from '@mui/icons-material/Remove';
 type Props = {
 	onChange?: (val: number) => void;
 	initVal?: number;
+	onIncr?: () => void;
+	onDecr?: () => void;
 };
 
 const NumericInput: FC<Props> = props => {
-	const { onChange, initVal } = props;
+	const { onChange, initVal, onIncr, onDecr } = props;
 
 	const [val, setVal] = useState<number>(initVal ?? 1);
 	const incrVal = () => {
@@ -17,12 +19,18 @@ const NumericInput: FC<Props> = props => {
 		if (onChange) {
 			onChange(val + 1);
 		}
+		if (onIncr) {
+			onIncr();
+		}
 	};
 	const decrVal = () => {
 		if (val > 0) {
 			setVal(val - 1);
 			if (onChange) {
 				onChange(val - 1);
+			}
+			if (onDecr) {
+				onDecr();
 			}
 		}
 	};

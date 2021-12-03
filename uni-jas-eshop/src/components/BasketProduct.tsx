@@ -9,15 +9,25 @@ import {
 	Product,
 	removeProductFromBasket
 } from '../utils/firebase';
+import { useSetSnack } from '../hooks/useSnack';
 
 import NumericInput from './NumericInput';
 
 type Props = {
 	productId: string;
 	amount: number;
+	onRemoved: () => void;
+	onIncr?: () => void;
+	onDecr?: () => void;
 };
 
-const BasketProduct: FC<Props> = ({ productId, amount }) => {
+const BasketProduct: FC<Props> = ({
+	productId,
+	amount,
+	onRemoved,
+	onIncr,
+	onDecr
+}) => {
 	const [product, setProduct] = useState<Product>();
 	const user = useLoggedInUser();
 
@@ -34,6 +44,7 @@ const BasketProduct: FC<Props> = ({ productId, amount }) => {
 			return;
 		}
 		removeProductFromBasket(user.uid, product.id);
+		onRemoved();
 	};
 
 	return (
@@ -57,7 +68,7 @@ const BasketProduct: FC<Props> = ({ productId, amount }) => {
 						alignItems: 'center'
 					}}
 				>
-					<NumericInput initVal={amount} />
+					<NumericInput initVal={amount} onIncr={onIncr} onDecr={onDecr} />
 				</Grid>
 				<Grid
 					item

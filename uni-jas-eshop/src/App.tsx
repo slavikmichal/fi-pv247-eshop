@@ -7,18 +7,21 @@ import Layout from './components/Layout';
 import Routes from './components/Routes';
 import { UserProvider } from './hooks/useLoggedInUser';
 import { BasketProvider } from './hooks/useShoppingBasket';
+import { SnackProvider } from './hooks/useSnack';
 
 const App = () => (
 	<ThemeProvider theme={theme}>
 		<UserProvider>
-			<BasketProvider>
-				<BrowserRouter>
-					<CssBaseline />
-					<Layout>
-						<Routes />
-					</Layout>
-				</BrowserRouter>
-			</BasketProvider>
+			<SnackProvider>
+				<BasketProvider>
+					<BrowserRouter>
+						<CssBaseline />
+						<Layout>
+							<Routes />
+						</Layout>
+					</BrowserRouter>
+				</BasketProvider>
+			</SnackProvider>
 		</UserProvider>
 	</ThemeProvider>
 );
