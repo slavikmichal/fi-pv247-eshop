@@ -61,7 +61,6 @@ const ProductPage = () => {
 		<Grid container>
 			<Grid item md={7}>
 				<img
-					// src={`/resources/products/${product.id}.jpg`}
 					src={imgUrl}
 					alt={product['name-en']}
 					style={{ objectFit: 'contain', width: '95%' }}

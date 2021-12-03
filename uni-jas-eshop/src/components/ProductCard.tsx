@@ -51,7 +51,6 @@ const ProductCard: FC<Props> = ({ product, children }) => {
 							component="img"
 							alt={product['name-en'] ?? 'No image found'}
 							height="250"
-							// image={`/resources/products/${product.id}.jpg`}
 							src={imgUrl}
 							style={{
 								objectFit: 'contain',
