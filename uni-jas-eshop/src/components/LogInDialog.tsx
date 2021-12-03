@@ -1,6 +1,5 @@
 import {
 	Dialog,
-	DialogTitle,
 	Typography,
 	TextField,
 	Paper,
@@ -10,16 +9,10 @@ import {
 	Link,
 	Grid
 } from '@mui/material';
-import { FC, FormEvent, useEffect, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 
 import useField from '../hooks/useField';
-import {
-	saveUserInfo,
-	signIn,
-	signUp,
-	UserInfo,
-	userInfoDocument
-} from '../utils/firebase';
+import { saveUserInfo, signIn, signUp } from '../utils/firebase';
 
 type LogInDialogProps = {
 	open: boolean;
@@ -51,7 +44,6 @@ const LogInDialog: FC<LogInDialogProps> = props => {
 		setSignUp(false);
 		clearEmail();
 		clearPassword();
-		clearPassword();
 		clearCity();
 		clearHouseNumber();
 		clearStreet();
@@ -59,38 +51,40 @@ const LogInDialog: FC<LogInDialogProps> = props => {
 		clearPhone();
 	};
 
+	const handleSubmit = async (e: FormEvent) => {
+		setSubmitError('');
+		e.preventDefault();
+		try {
+			setLoading(true);
+			if (isSignUp) {
+				await signUp(email, password);
+				await saveUserInfo({
+					email,
+					city,
+					houseNumber,
+					street,
+					postalCode,
+					phone
+				});
+			} else {
+				await signIn(email, password);
+			}
+			setLoading(false);
+			onClose();
+			clearForm();
+		} catch (err) {
+			setLoading(false);
+			setSubmitError(
+				(err as { message?: string })?.message ?? 'Unknown error.'
+			);
+		}
+	};
+
 	return (
 		<Dialog open={open} onClose={onClose}>
 			<Paper
 				component="form"
-				onSubmit={async (e: FormEvent) => {
-					setSubmitError('');
-					e.preventDefault();
-					try {
-						setLoading(true);
-						if (isSignUp) {
-							await signUp(email, password);
-							await saveUserInfo({
-								email,
-								city,
-								houseNumber,
-								street,
-								postalCode,
-								phone
-							});
-						} else {
-							await signIn(email, password);
-						}
-						setLoading(false);
-						onClose();
-						clearForm();
-					} catch (err) {
-						setLoading(false);
-						setSubmitError(
-							(err as { message?: string })?.message ?? 'Unknown error.'
-						);
-					}
-				}}
+				onSubmit={handleSubmit}
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
