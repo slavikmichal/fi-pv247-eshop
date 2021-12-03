@@ -23,7 +23,7 @@ const ProductPage = () => {
 	const user = useLoggedInUser();
 
 	const { id } = useParams<{ id: string }>();
-	// const productSnap = await getDoc<Product>(productDocument(id));
+
 	const product = products.find(p => p.id === id);
 	const theme = useTheme();
 	const color = theme.palette.mode === 'light' ? 'primary' : 'secondary';
@@ -41,10 +41,10 @@ const ProductPage = () => {
 
 	useEffect(() => {
 		const getImgUrl = async () => {
-			const url: string = !product
-				? '/resources/placeholder.jpg'
-				: await getDownloadURL(ref(productsRef, `${product.id}.jpg`));
-
+			const productSnap = await getDoc<Product>(productDocument(id));
+			const url: string = await getDownloadURL(
+				ref(productsRef, `${productSnap.get('id')}.jpg`)
+			);
 			setImgUrl(url);
 		};
 		getImgUrl();
@@ -58,7 +58,6 @@ const ProductPage = () => {
 		<Grid container>
 			<Grid item md={7}>
 				<img
-					id="product_img"
 					// src={`/resources/products/${product.id}.jpg`}
 					src={imgUrl}
 					alt={product['name-en']}
