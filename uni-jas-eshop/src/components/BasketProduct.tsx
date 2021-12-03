@@ -10,6 +10,7 @@ import {
 	removeProductFromBasket
 } from '../utils/firebase';
 import { useSetSnack } from '../hooks/useSnack';
+import useImage from '../hooks/useImage';
 
 import NumericInput from './NumericInput';
 
@@ -30,6 +31,7 @@ const BasketProduct: FC<Props> = ({
 }) => {
 	const [product, setProduct] = useState<Product>();
 	const user = useLoggedInUser();
+	const imgUrl = useImage(productId);
 
 	useEffect(() => {
 		const getProd = async () => {
@@ -54,7 +56,7 @@ const BasketProduct: FC<Props> = ({
 				<Grid item md={3}>
 					<img
 						id="product_img"
-						src={`/resources/products/${product?.id}.jpg`}
+						src={imgUrl}
 						alt={product?.['name-en']}
 						style={{ objectFit: 'contain', width: '95%' }}
 					/>
