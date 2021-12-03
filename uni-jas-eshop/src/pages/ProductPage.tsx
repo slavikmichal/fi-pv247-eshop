@@ -1,22 +1,17 @@
-import { Button, Grid, Typography, useTheme } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { getDoc, onSnapshot } from 'firebase/firestore';
-import { ref, getDownloadURL } from 'firebase/storage';
+import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 import NumericInput from '../components/NumericInput';
-import Snack from '../components/Snack';
 import useImage from '../hooks/useImage';
 import useLoggedInUser from '../hooks/useLoggedInUser';
-import useShoppingBasket from '../hooks/useShoppingBasket';
 import { useSetSnack } from '../hooks/useSnack';
 import {
 	addProductToBasket,
 	Product,
-	productDocument,
-	productsCollection,
-	productsRef
+	productsCollection
 } from '../utils/firebase';
 
 const ProductPage = () => {
@@ -30,8 +25,6 @@ const ProductPage = () => {
 	const imgUrl = useImage(id);
 
 	const product = products.find(p => p.id === id);
-	const theme = useTheme();
-	const color = theme.palette.mode === 'light' ? 'primary' : 'secondary';
 
 	const onAmountChange = (val: number) => setAmount(val);
 
@@ -77,7 +70,6 @@ const ProductPage = () => {
 					</Grid>
 					<Grid item md={9} sx={{ marginLeft: 2 }}>
 						<Button
-							color={color}
 							variant="contained"
 							sx={{ width: 200 }}
 							onClick={async () => {

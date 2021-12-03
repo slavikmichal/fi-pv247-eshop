@@ -24,9 +24,6 @@ const MainHeader = () => {
 	const [openDialog, setOpenDialog] = useState<boolean>(false);
 	const [openBasketDialog, setOpenBasketDialog] = useState<boolean>(false);
 
-	const light_mode = theme.palette.mode === 'light';
-	const color = light_mode ? 'primary' : 'secondary';
-
 	return (
 		<Grid
 			container
@@ -68,7 +65,6 @@ const MainHeader = () => {
 				{!user && (
 					<>
 						<Button
-							color={color}
 							variant="outlined"
 							startIcon={<PersonIcon />}
 							sx={{ marginRight: 1 }}
@@ -85,7 +81,6 @@ const MainHeader = () => {
 				{user && (
 					<>
 						<Button
-							color={color}
 							variant="outlined"
 							startIcon={<ShoppingBasketIcon />}
 							onClick={() => setOpenBasketDialog(true)}

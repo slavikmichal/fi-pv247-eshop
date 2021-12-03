@@ -24,18 +24,15 @@ const MyToolbar: FC<Props> = ({ setTheme, children }) => {
 	const theme = useTheme();
 	const user = useLoggedInUser();
 
-	const light_mode = theme.palette.mode === 'light';
-	const app_bar_color = light_mode ? 'inherit' : 'secondary';
-
 	return (
 		<Toolbar disableGutters sx={{ gap: 2 }} style={{ minHeight: 30 }}>
-			<Button color={app_bar_color} component={Link} to="/">
+			<Button color="inherit" component={Link} to="/">
 				Home
 			</Button>
-			<Button color={app_bar_color} component={Link} to="/products">
+			<Button color="inherit" component={Link} to="/products">
 				Products
 			</Button>
-			<Button color={app_bar_color} component={Link} to="/about">
+			<Button color="inherit" component={Link} to="/about">
 				About us
 			</Button>
 			<Box sx={{ flexGrow: 1 }} />
@@ -47,7 +44,7 @@ const MyToolbar: FC<Props> = ({ setTheme, children }) => {
 					</IconButton>
 				</Box>
 			)}
-			{light_mode ? (
+			{theme.palette.mode === 'light' ? (
 				<IconButton onClick={() => setTheme(darkTheme)}>
 					<DarkModeIcon />
 				</IconButton>
