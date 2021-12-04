@@ -1,5 +1,6 @@
-import { Dialog, DialogTitle, Paper } from '@mui/material';
+import { Box, Button, Dialog, DialogTitle, Paper } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import useShoppingBasket from '../hooks/useShoppingBasket';
@@ -79,6 +80,18 @@ const BasketDialog: FC<BasketDialogProps> = props => {
 				<Paper sx={{ width: 600, padding: 4 }}>
 					No products in your basket yet.
 				</Paper>
+			)}
+			{basketProducts?.length && (
+				<Box sx={{ margin: 3, textAlign: 'right' }}>
+					<Button
+						component={Link}
+						to="/checkout"
+						variant="contained"
+						onClick={onClose}
+					>
+						Checkout
+					</Button>
+				</Box>
 			)}
 		</Dialog>
 	);
