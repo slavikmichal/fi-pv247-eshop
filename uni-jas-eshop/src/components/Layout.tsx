@@ -32,9 +32,9 @@ const Layout: FC<Props> = ({ setTheme, children }) => {
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					height: '100vh',
 					pt: 8,
-					gap: 2
+					gap: 2,
+					mb: 20
 				}}
 			>
 				{children}

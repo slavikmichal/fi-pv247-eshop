@@ -9,6 +9,7 @@ import {
 	removeProductFromBasket
 } from '../utils/firebase';
 import useImage from '../hooks/useImage';
+import useProductInfo from '../hooks/useProductInfo';
 
 import NumericInput from './NumericInput';
 
@@ -27,17 +28,9 @@ const BasketProduct: FC<Props> = ({
 	onIncr,
 	onDecr
 }) => {
-	const [product, setProduct] = useState<Product>();
+	const product = useProductInfo(productId);
 	const user = useLoggedInUser();
 	const imgUrl = useImage(productId);
-
-	useEffect(() => {
-		const getProd = async () => {
-			const p = await getProduct(productId);
-			setProduct(p);
-		};
-		getProd();
-	}, []);
 
 	const removeProduct = async () => {
 		if (user && product) {
