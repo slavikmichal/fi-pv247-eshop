@@ -17,7 +17,7 @@ const Home: FC = () => (
 			<Grid item md={4} alignContent="center">
 				<HomeCard
 					router_link="/products"
-					imgSrc="/resources/brand_dark.svg"
+					imgSrc="/resources/products.png"
 					label="Enter eshop"
 				/>
 			</Grid>
