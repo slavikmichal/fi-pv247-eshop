@@ -8,9 +8,9 @@ const Home: FC = () => (
 		<Typography variant="h4" textAlign="center">
 			Welcome on our website!
 		</Typography>
-		<Typography variant="h6" textAlign="center">
-			Uni-Jas is a place, where you can shop all the necesities for your
-			restaurant, pub or even home.
+		<Typography variant="h5" textAlign="center">
+			Uni-Jas is a place, where you can shop all the necessities for your
+			restaurant, pub or home.
 		</Typography>
 		<Grid container textAlign="center">
 			<Grid item md={2} />

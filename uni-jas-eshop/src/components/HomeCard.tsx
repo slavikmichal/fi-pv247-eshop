@@ -1,4 +1,11 @@
-import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import {
+	Box,
+	Card,
+	CardContent,
+	CardMedia,
+	Typography,
+	useTheme
+} from '@mui/material';
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -10,18 +17,20 @@ type Props = {
 
 const HomeCard: FC<Props> = ({ imgSrc, label, router_link }) => {
 	const [isHovering, setIsHovering] = useState(false);
+	const theme = useTheme();
 
 	return (
 		<Card
-			sx={{ maxWidth: 345 }}
+			sx={{ maxWidth: 345, margin: 1 }}
 			onMouseEnter={() => setIsHovering(true)}
 			onMouseLeave={() => setIsHovering(false)}
 		>
 			<Box
 				component={Link}
 				to={router_link}
-				style={{
-					textDecoration: 'None'
+				sx={{
+					textDecoration: 'None',
+					color: theme.palette.text.primary
 				}}
 			>
 				<Box component="div" sx={{ overflow: 'hidden' }}>
@@ -29,15 +38,15 @@ const HomeCard: FC<Props> = ({ imgSrc, label, router_link }) => {
 						component="img"
 						height="250"
 						src={imgSrc}
-						style={{
+						sx={{
 							objectFit: 'contain',
 							transform: isHovering ? `scale3d(1.3, 1.3, 1)` : '',
 							transition: 'transform 0.2s ease-in-out'
 						}}
 					/>
 				</Box>
-				<CardContent sx={{ height: 80 }}>
-					<Typography variant="h5" component="div" textAlign="center">
+				<CardContent sx={{ height: 60 }}>
+					<Typography variant="h5" textAlign="center">
 						{label}
 					</Typography>
 				</CardContent>
