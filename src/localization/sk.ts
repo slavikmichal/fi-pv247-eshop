@@ -47,5 +47,6 @@ export default {
 	pwd: 'Heslo',
 	en: 'Angličtina',
 	sk: 'Slovenčina',
-	product: 'Produkt detail'
+	product: 'Produkt detail',
+	prices_info: 'Prihlíste sa pre zobrazenie ceny'
 };

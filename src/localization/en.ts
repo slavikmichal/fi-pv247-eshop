@@ -47,5 +47,6 @@ export default {
 	pwd: 'Password',
 	en: 'English',
 	sk: 'Slovak',
-	product: 'Product detail'
+	product: 'Product detail',
+	prices_info: 'Please log in to see prices'
 };
