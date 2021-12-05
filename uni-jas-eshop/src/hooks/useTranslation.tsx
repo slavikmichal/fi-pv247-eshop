@@ -26,7 +26,6 @@ export const LanguageProvider: FC = ({ children }) => {
 	);
 };
 
-// Only used by language switch
 export const useLanguage = () => useContext(LanguageContext);
 
 // Convenience hook for localizing translations

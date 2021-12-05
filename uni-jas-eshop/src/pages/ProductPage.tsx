@@ -9,7 +9,7 @@ import useImage from '../hooks/useImage';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import usePageTitle from '../hooks/usePageTitle';
 import { useSetSnack } from '../hooks/useSnack';
-import { useTranslation } from '../hooks/useTranslation';
+import { useLanguage, useTranslation } from '../hooks/useTranslation';
 import {
 	addProductToBasket,
 	Product,
@@ -22,6 +22,8 @@ const ProductPage = () => {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [amount, setAmount] = useState<number>(1);
 	const [added, setAdded] = useState<boolean>(false);
+	const [lang, _setLang] = useLanguage();
+
 	const user = useLoggedInUser();
 	const setSnackState = useSetSnack();
 	const imgUrl = useImage(id);
@@ -66,7 +68,7 @@ const ProductPage = () => {
 			<Grid item md={5}>
 				<Typography variant="h3" sx={{ marginBottom: 4 }}>
 					{/* TODO figure out names */}
-					{product['name-en']}
+					{lang === 'en' ? product['name-en'] : product['name-sk']}
 				</Typography>
 				<Typography variant="h4">{product['price-vat']} €</Typography>
 				<Grid container sx={{ marginY: 1 }}>

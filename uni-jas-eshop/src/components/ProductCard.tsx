@@ -13,6 +13,7 @@ import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import useImage from '../hooks/useImage';
+import { useLanguage } from '../hooks/useTranslation';
 import { Product } from '../utils/firebase';
 
 type Props = {
@@ -21,6 +22,7 @@ type Props = {
 
 const ProductCard: FC<Props> = ({ product }) => {
 	const [isHovering, setIsHovering] = useState(false);
+	const [lang, _setLang] = useLanguage();
 	const imgUrl = useImage(product.id);
 	const theme = useTheme();
 
@@ -55,7 +57,7 @@ const ProductCard: FC<Props> = ({ product }) => {
 					</Box>
 					<CardContent sx={{ height: 100 }}>
 						<Typography gutterBottom variant="h5" component="div">
-							{product['name-en']}
+							{lang === 'en' ? product['name-en'] : product['name-sk']}
 						</Typography>
 					</CardContent>
 				</Box>
