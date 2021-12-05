@@ -6,6 +6,7 @@ import Products from '../pages/Products';
 import NotFound from '../pages/NotFound';
 import ProductPage from '../pages/ProductPage';
 import Checkout from '../pages/Checkout';
+import Order from '../pages/Order';
 
 const Routes = () => (
 	<Switch>
@@ -14,6 +15,7 @@ const Routes = () => (
 		<Route path="/products" exact component={Products} />
 		<Route path="/products/:id" exact component={ProductPage} />
 		<Route path="/checkout" exact component={Checkout} />
+		<Route path="/order/:id" exact component={Order} />
 		<Route component={NotFound} />
 	</Switch>
 );

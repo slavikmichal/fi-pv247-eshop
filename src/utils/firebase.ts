@@ -163,3 +163,21 @@ export const getProduct = async (productId: string) => {
 
 export const getUrl = async (id: string) =>
 	await getDownloadURL(ref(productsRef, `${id}.jpg`));
+
+export type OrderType = {
+	totalPrice: number;
+	deliveryAddress: string;
+	payment: string;
+	city?: string;
+	houseNumber?: string;
+	street?: string;
+	postalCode?: string;
+};
+
+export const orderDocument = (id: string) =>
+	doc(db, 'orders', id) as DocumentReference<OrderType>;
+
+export const orderCollection = collection(
+	db,
+	'orders'
+) as CollectionReference<OrderType>;
