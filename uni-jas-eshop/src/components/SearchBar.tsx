@@ -1,6 +1,6 @@
 import { Grid, IconButton, InputBase, Paper, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
 
 import useProducts from '../hooks/useProducts';
 import { useLanguage } from '../hooks/useTranslation';
@@ -11,6 +11,8 @@ const SearchBar = () => {
 	const [searchPattern, setSearchPattern] = useState<string>('');
 	const products = useProducts();
 	const [lang, _setLang] = useLanguage();
+	const [hide, setHide] = useState<boolean>(false);
+
 	const filterProducts = () => {
 		if (searchPattern.trim().length < 1) {
 			return [];
@@ -46,6 +48,15 @@ const SearchBar = () => {
 						onChange={(e: ChangeEvent) =>
 							setSearchPattern((e.target as HTMLInputElement).value)
 						}
+						onClick={() => setHide(false)}
+						onBlur={e => {
+							if (
+								!e.relatedTarget ||
+								e.relatedTarget.className.indexOf('SearchItem') === -1
+							) {
+								setHide(true);
+							}
+						}}
 					/>
 					<IconButton sx={{ p: '10px' }} aria-label="search">
 						<SearchIcon />
@@ -63,11 +74,18 @@ const SearchBar = () => {
 						width: '35rem',
 						maxHeight: '300px',
 						overflowY: 'scroll',
-						display: searchPattern.trim().length > 0 ? 'block' : 'none'
+						display: searchPattern.trim().length < 1 || hide ? 'none' : 'block'
 					}}
+					tabIndex={0}
 				>
 					{filteredProducts.length ? (
-						filteredProducts.map(p => <SearchProduct key={p.id} product={p} />)
+						filteredProducts.map(p => (
+							<SearchProduct
+								key={p.id}
+								product={p}
+								onClick={() => setHide(true)}
+							/>
+						))
 					) : (
 						<Typography sx={{ height: '40px', marginTop: '20px' }}>
 							No products found
