@@ -11,7 +11,7 @@ const useProductInfo = (id: string) => {
 			setProduct(p);
 		};
 		getProd();
-	}, []);
+	}, [id]);
 
 	return product;
 };

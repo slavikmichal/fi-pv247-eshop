@@ -16,7 +16,7 @@ const useImage = (id: string) => {
 			setImgUrl(url);
 		};
 		getImgUrl();
-	}, []);
+	}, [id]);
 
 	return imgUrl;
 };

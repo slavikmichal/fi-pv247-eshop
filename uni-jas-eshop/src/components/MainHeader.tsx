@@ -1,15 +1,8 @@
-import {
-	Button,
-	Grid,
-	IconButton,
-	InputBase,
-	Paper,
-	useTheme
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Button, Grid, useTheme, Box } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as LogoLight } from '../resources/logo_light.svg';
 import { ReactComponent as LogoDark } from '../resources/logo_dark.svg';
@@ -17,6 +10,7 @@ import useLoggedInUser from '../hooks/useLoggedInUser';
 
 import BasketDialog from './BasketDialog';
 import LogInDialog from './LogInDialog';
+import SearchBar from './SearchBar';
 
 const MainHeader = () => {
 	const theme = useTheme();
@@ -34,31 +28,17 @@ const MainHeader = () => {
 			overflow="visible"
 		>
 			<Grid item md={3} sx={{ margin: 2 }}>
-				{theme.palette.mode === 'light' ? (
-					<LogoLight style={{ maxHeight: 90 }} />
-				) : (
-					<LogoDark style={{ maxHeight: 90 }} />
-				)}
+				<Box component={Link} to="/">
+					{theme.palette.mode === 'light' ? (
+						<LogoLight style={{ maxHeight: 90 }} />
+					) : (
+						<LogoDark style={{ maxHeight: 90 }} />
+					)}
+				</Box>
 			</Grid>
 
-			<Grid item md={3}>
-				<Paper
-					component="div"
-					sx={{
-						p: '2px 4px',
-						display: 'flex',
-						alignItems: 'center'
-					}}
-				>
-					<InputBase
-						sx={{ ml: 1, flex: 1 }}
-						placeholder="Search"
-						inputProps={{ 'aria-label': 'search' }}
-					/>
-					<IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-						<SearchIcon />
-					</IconButton>
-				</Paper>
+			<Grid item md={4}>
+				<SearchBar />
 			</Grid>
 
 			<Grid item md={3} sx={{ textAlign: 'right' }}>

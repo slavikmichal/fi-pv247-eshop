@@ -70,28 +70,39 @@ const ProductPage = () => {
 					{/* TODO figure out names */}
 					{lang === 'en' ? product['name-en'] : product['name-sk']}
 				</Typography>
-				<Typography variant="h4">{product['price-vat']} €</Typography>
-				<Grid container sx={{ marginY: 1 }}>
-					<Grid item>
-						<NumericInput onChange={onAmountChange} />
-					</Grid>
-					<Grid item md={9} sx={{ marginLeft: 2 }}>
-						<Button
-							variant="contained"
-							sx={{ width: 200 }}
-							onClick={async () => {
-								try {
-									await addProductToBasket(user?.uid ?? '', product.id, amount);
-									setAdded(true);
-								} catch {
-									console.log('Error while adding product to the basket');
-								}
-							}}
-						>
-							{t('add')}
-						</Button>
-					</Grid>
-				</Grid>
+				{user ? (
+					<>
+						<Typography variant="h4">{product['price-vat']} €</Typography>
+						<Grid container sx={{ marginY: 1 }}>
+							<Grid item>
+								<NumericInput onChange={onAmountChange} />
+							</Grid>
+
+							<Grid item md={9} sx={{ marginLeft: 2 }}>
+								<Button
+									variant="contained"
+									sx={{ width: 200 }}
+									onClick={async () => {
+										try {
+											await addProductToBasket(
+												user?.uid ?? '',
+												product.id,
+												amount
+											);
+											setAdded(true);
+										} catch {
+											console.log('Error while adding product to the basket');
+										}
+									}}
+								>
+									{t('add')}
+								</Button>
+							</Grid>
+						</Grid>
+					</>
+				) : (
+					<Typography>Please log in to see prices</Typography>
+				)}
 				{/* <Typography variant="body1">{product.description}</Typography> */}
 			</Grid>
 		</Grid>
