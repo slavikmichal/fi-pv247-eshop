@@ -16,7 +16,7 @@ export default {
 	delivery_addr: 'Delivery address',
 	payment: 'Payment method',
 	confirm_order: 'Confirm order',
-	not_found: 'Not Foun',
+	not_found: 'Not Found',
 	not_found_msg: 'Oops, looks like this page does not exist',
 	product_added: 'Product was added to the basket',
 	product_not_exist: 'Product does not exist.',
