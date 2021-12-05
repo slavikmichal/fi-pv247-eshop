@@ -46,5 +46,6 @@ export default {
 	basket_label: 'Košík',
 	pwd: 'Heslo',
 	en: 'Angličtina',
-	sk: 'Slovenčina'
+	sk: 'Slovenčina',
+	product: 'Produkt detail'
 };

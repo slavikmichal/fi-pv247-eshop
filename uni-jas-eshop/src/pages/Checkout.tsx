@@ -19,6 +19,7 @@ import ProductCheckout from '../components/ProductCheckout';
 import Snack from '../components/Snack';
 import useField from '../hooks/useField';
 import useLoggedInUser from '../hooks/useLoggedInUser';
+import usePageTitle from '../hooks/usePageTitle';
 import useShoppingBasket from '../hooks/useShoppingBasket';
 import { useTranslation } from '../hooks/useTranslation';
 import useUserInfo from '../hooks/useUserInfo';
@@ -29,6 +30,7 @@ const Checkout = () => {
 	const basket = useShoppingBasket();
 	const userInfo = useUserInfo();
 	const t = useTranslation();
+	usePageTitle(t('checkout'));
 
 	const [products, setProducts] = useState<Product[]>([]);
 	const [deliveryAddress, setDeliveryAddress] = useState<string>('user');

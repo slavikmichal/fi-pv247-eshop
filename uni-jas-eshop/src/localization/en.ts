@@ -46,5 +46,6 @@ export default {
 	basket_label: 'Shopping basket',
 	pwd: 'Password',
 	en: 'English',
-	sk: 'Slovak'
+	sk: 'Slovak',
+	product: 'Product detail'
 };

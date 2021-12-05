@@ -2,11 +2,13 @@ import { Grid, Typography, useTheme } from '@mui/material';
 import { FC } from 'react';
 
 import HomeCard from '../components/HomeCard';
+import usePageTitle from '../hooks/usePageTitle';
 import { useTranslation } from '../hooks/useTranslation';
 
 const Home: FC = () => {
 	const theme = useTheme();
 	const t = useTranslation();
+	usePageTitle(t('home'));
 
 	return (
 		<>

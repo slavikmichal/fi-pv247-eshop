@@ -7,6 +7,7 @@ import { useParams } from 'react-router';
 import NumericInput from '../components/NumericInput';
 import useImage from '../hooks/useImage';
 import useLoggedInUser from '../hooks/useLoggedInUser';
+import usePageTitle from '../hooks/usePageTitle';
 import { useSetSnack } from '../hooks/useSnack';
 import { useTranslation } from '../hooks/useTranslation';
 import {
@@ -25,6 +26,7 @@ const ProductPage = () => {
 	const setSnackState = useSetSnack();
 	const imgUrl = useImage(id);
 	const t = useTranslation();
+	usePageTitle(t('product'));
 
 	const product = products.find(p => p.id === id);
 

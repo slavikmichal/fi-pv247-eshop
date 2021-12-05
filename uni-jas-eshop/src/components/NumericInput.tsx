@@ -3,6 +3,8 @@ import { FC, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
+import { useTranslation } from '../hooks/useTranslation';
+
 type Props = {
 	onChange?: (val: number) => void;
 	initVal?: number;
@@ -12,6 +14,7 @@ type Props = {
 
 const NumericInput: FC<Props> = props => {
 	const { onChange, initVal, onIncr, onDecr } = props;
+	const t = useTranslation();
 
 	const [val, setVal] = useState<number>(initVal ?? 1);
 
@@ -70,7 +73,7 @@ const NumericInput: FC<Props> = props => {
 					paddingTop: '4px'
 				}}
 			>
-				{val} ks
+				{val} {t('entity')}
 			</Box>
 			<Box
 				component="div"
