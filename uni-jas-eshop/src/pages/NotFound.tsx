@@ -2,9 +2,11 @@ import { Typography } from '@mui/material';
 import WarningIcon from '@mui/icons-material/Warning';
 
 import { useTranslation } from '../hooks/useTranslation';
+import usePageTitle from '../hooks/usePageTitle';
 
 const NotFound = () => {
 	const t = useTranslation();
+	usePageTitle(t('not_found'));
 
 	return (
 		<>

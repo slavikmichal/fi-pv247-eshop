@@ -1,10 +1,12 @@
 import { Box, Grid, Typography } from '@mui/material';
 
 import MapComponent from '../components/MapComponent';
+import usePageTitle from '../hooks/usePageTitle';
 import { useTranslation } from '../hooks/useTranslation';
 
 const About = () => {
 	const t = useTranslation();
+	usePageTitle(t('about'));
 
 	return (
 		<Grid container sx={{ margin: 1 }}>
