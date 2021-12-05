@@ -1,4 +1,3 @@
-import { User } from '@firebase/auth';
 import {
 	Alert,
 	Button,
@@ -26,7 +25,6 @@ import useUserInfo from '../hooks/useUserInfo';
 import {
 	OrderType,
 	orderCollection,
-	orderDocument,
 	Product,
 	productsCollection
 } from '../utils/firebase';
