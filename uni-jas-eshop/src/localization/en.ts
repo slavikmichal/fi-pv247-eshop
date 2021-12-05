@@ -44,5 +44,7 @@ export default {
 	cash: 'Cash on delivery',
 	add: 'Add to basket',
 	basket_label: 'Shopping basket',
-	pwd: 'Password'
+	pwd: 'Password',
+	en: 'English',
+	sk: 'Slovak'
 };

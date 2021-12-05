@@ -17,6 +17,8 @@ import { signOut } from '../utils/firebase';
 import { lightTheme, darkTheme } from '../utils/theme';
 import { useTranslation } from '../hooks/useTranslation';
 
+import LanguageSwitch from './LanguageSwitch';
+
 type Props = {
 	setTheme: React.Dispatch<React.SetStateAction<Theme>>;
 };
@@ -55,6 +57,7 @@ const MyToolbar: FC<Props> = ({ setTheme, children }) => {
 					<LightModeIcon />
 				</IconButton>
 			)}
+			<LanguageSwitch />
 		</Toolbar>
 	);
 };
