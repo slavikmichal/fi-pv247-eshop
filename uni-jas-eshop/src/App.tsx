@@ -9,6 +9,7 @@ import Routes from './components/Routes';
 import { UserProvider } from './hooks/useLoggedInUser';
 import { BasketProvider } from './hooks/useShoppingBasket';
 import { SnackProvider } from './hooks/useSnack';
+import { LanguageProvider } from './hooks/useTranslation';
 
 const App = () => {
 	const [theme, setTheme] = useState<Theme>(lightTheme);
@@ -16,16 +17,18 @@ const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<UserProvider>
-				<SnackProvider>
-					<BasketProvider>
-						<BrowserRouter>
-							<CssBaseline />
-							<Layout setTheme={setTheme}>
-								<Routes />
-							</Layout>
-						</BrowserRouter>
-					</BasketProvider>
-				</SnackProvider>
+				<LanguageProvider>
+					<SnackProvider>
+						<BasketProvider>
+							<BrowserRouter>
+								<CssBaseline />
+								<Layout setTheme={setTheme}>
+									<Routes />
+								</Layout>
+							</BrowserRouter>
+						</BasketProvider>
+					</SnackProvider>
+				</LanguageProvider>
 			</UserProvider>
 		</ThemeProvider>
 	);
