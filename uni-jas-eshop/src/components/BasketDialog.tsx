@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import useShoppingBasket from '../hooks/useShoppingBasket';
 import { useSetSnack } from '../hooks/useSnack';
+import { useTranslation } from '../hooks/useTranslation';
 import { decrProductInBasket, incrProductInBasket } from '../utils/firebase';
 
 import BasketProduct from './BasketProduct';
@@ -20,6 +21,7 @@ const BasketDialog: FC<BasketDialogProps> = props => {
 	const basketProducts = useShoppingBasket();
 	const setSnack = useSetSnack();
 	const user = useLoggedInUser();
+	const t = useTranslation();
 
 	const [removed, setRemoved] = useState<boolean>(false);
 	const [added, setAdded] = useState<boolean>(false);
@@ -28,7 +30,7 @@ const BasketDialog: FC<BasketDialogProps> = props => {
 		setSnack({
 			openInit: removed,
 			severity: 'success',
-			text: 'Product was removed from the basket',
+			text: t('product_removed'),
 			onClose: () => setRemoved(false)
 		});
 	}, [removed]);
@@ -36,7 +38,7 @@ const BasketDialog: FC<BasketDialogProps> = props => {
 		setSnack({
 			openInit: added,
 			severity: 'success',
-			text: 'Product was added to the basket',
+			text: t('product_added'),
 			onClose: () => setAdded(false)
 		});
 	}, [added]);
@@ -64,7 +66,7 @@ const BasketDialog: FC<BasketDialogProps> = props => {
 
 	return (
 		<Dialog open={open} onClose={onClose}>
-			<DialogTitle>Shopping basket</DialogTitle>
+			<DialogTitle>{t('basket_label')}</DialogTitle>
 			{basketProducts?.length ? (
 				basketProducts.map(p => (
 					<BasketProduct
@@ -77,9 +79,7 @@ const BasketDialog: FC<BasketDialogProps> = props => {
 					/>
 				))
 			) : (
-				<Paper sx={{ width: 600, padding: 4 }}>
-					No products in your basket yet.
-				</Paper>
+				<Paper sx={{ width: 600, padding: 4 }}>{t('no_products')}</Paper>
 			)}
 			{basketProducts?.length && (
 				<Box sx={{ margin: 3, textAlign: 'right' }}>
@@ -89,7 +89,7 @@ const BasketDialog: FC<BasketDialogProps> = props => {
 						variant="contained"
 						onClick={onClose}
 					>
-						Checkout
+						{t('checkout')}
 					</Button>
 				</Box>
 			)}

@@ -15,6 +15,7 @@ import { FC } from 'react';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { signOut } from '../utils/firebase';
 import { lightTheme, darkTheme } from '../utils/theme';
+import { useTranslation } from '../hooks/useTranslation';
 
 type Props = {
 	setTheme: React.Dispatch<React.SetStateAction<Theme>>;
@@ -23,17 +24,18 @@ type Props = {
 const MyToolbar: FC<Props> = ({ setTheme, children }) => {
 	const theme = useTheme();
 	const user = useLoggedInUser();
+	const t = useTranslation();
 
 	return (
 		<Toolbar disableGutters sx={{ gap: 2 }} style={{ minHeight: 30 }}>
 			<Button color="inherit" component={Link} to="/">
-				Home
+				{t('home')}
 			</Button>
 			<Button color="inherit" component={Link} to="/products">
-				Products
+				{t('products')}
 			</Button>
 			<Button color="inherit" component={Link} to="/about">
-				About us
+				{t('about')}
 			</Button>
 			<Box sx={{ flexGrow: 1 }} />
 			{user && (

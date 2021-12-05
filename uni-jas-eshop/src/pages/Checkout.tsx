@@ -20,6 +20,7 @@ import Snack from '../components/Snack';
 import useField from '../hooks/useField';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import useShoppingBasket from '../hooks/useShoppingBasket';
+import { useTranslation } from '../hooks/useTranslation';
 import useUserInfo from '../hooks/useUserInfo';
 import { Product, productsCollection } from '../utils/firebase';
 
@@ -27,6 +28,7 @@ const Checkout = () => {
 	const user = useLoggedInUser();
 	const basket = useShoppingBasket();
 	const userInfo = useUserInfo();
+	const t = useTranslation();
 
 	const [products, setProducts] = useState<Product[]>([]);
 	const [deliveryAddress, setDeliveryAddress] = useState<string>('user');
@@ -75,7 +77,7 @@ const Checkout = () => {
 	if (!user) {
 		return (
 			<Alert severity="error" sx={{ width: '100%' }}>
-				Please log in to continue shopping.
+				{t('not_logged_in')}
 			</Alert>
 		);
 	}
@@ -83,7 +85,7 @@ const Checkout = () => {
 	if (!basket?.length) {
 		return (
 			<Alert severity="info" sx={{ width: '100%' }}>
-				Your basket is empty, please add some products first.
+				{t('basket_empty')}
 			</Alert>
 		);
 	}
@@ -95,13 +97,15 @@ const Checkout = () => {
 				<ProductCheckout key={p.product_id} bProduct={p} />
 			))}
 			<Box component="div" sx={{ textAlign: 'right' }}>
-				<Typography variant="h4">Grand Total: {getTotalPrice()} €</Typography>
+				<Typography variant="h4">
+					{t('g_total')} {getTotalPrice()} €
+				</Typography>
 			</Box>
 
 			<Box component="span" sx={{ border: '1px solid #eaeaea', my: '2rem' }} />
 
 			<FormControl component="fieldset">
-				<FormLabel component="legend">Delivery address</FormLabel>
+				<FormLabel component="legend">{t('delivery_addr')}</FormLabel>
 				<RadioGroup
 					defaultValue="user"
 					name="delivery-address"
@@ -110,12 +114,12 @@ const Checkout = () => {
 					<FormControlLabel
 						value="user"
 						control={<Radio />}
-						label="Stored address"
+						label={t('stored_addr')}
 					/>
 					<FormControlLabel
 						value="custom"
 						control={<Radio />}
-						label="Custom address"
+						label={t('custom_addr')}
 					/>
 				</RadioGroup>
 			</FormControl>
@@ -139,18 +143,26 @@ const Checkout = () => {
 					<Grid container>
 						<Grid item md={9}>
 							<TextField
-								label="Street"
+								label={t('street')}
 								{...streetProps}
 								type="text"
 								sx={{ width: '90%' }}
 							/>
 						</Grid>
 						<Grid item md={3}>
-							<TextField label="Number" {...houseNumberProps} type="text" />
+							<TextField
+								label={t('number')}
+								{...houseNumberProps}
+								type="text"
+							/>
 						</Grid>
 					</Grid>
-					<TextField label="City" {...cityProps} type="text" />
-					<TextField label="Postal Code" {...postalCodeProps} type="text" />
+					<TextField label={t('city')} {...cityProps} type="text" />
+					<TextField
+						label={t('postal_code')}
+						{...postalCodeProps}
+						type="text"
+					/>
 				</Box>
 			)}
 
@@ -166,17 +178,17 @@ const Checkout = () => {
 					<FormControlLabel
 						value="card"
 						control={<Radio />}
-						label="Credit card"
+						label={t('credit_card')}
 					/>
 					<FormControlLabel
 						value="transfer"
 						control={<Radio />}
-						label="Bank transfer"
+						label={t('transfer')}
 					/>
 					<FormControlLabel
 						value="cash"
 						control={<Radio />}
-						label="Cash on delivery"
+						label={t('cash')}
 					/>
 				</RadioGroup>
 			</FormControl>
@@ -185,7 +197,7 @@ const Checkout = () => {
 
 			<Box component="div" sx={{ textAlign: 'center' }}>
 				<Button type="submit" variant="contained">
-					Confirm order
+					{t('confirm_order')}
 				</Button>
 			</Box>
 		</>

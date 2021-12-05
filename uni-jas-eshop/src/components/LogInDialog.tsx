@@ -12,6 +12,7 @@ import {
 import { FC, FormEvent, useState } from 'react';
 
 import useField from '../hooks/useField';
+import { useTranslation } from '../hooks/useTranslation';
 import { saveUserInfo, signIn, signUp } from '../utils/firebase';
 
 type LogInDialogProps = {
@@ -38,6 +39,7 @@ const LogInDialog: FC<LogInDialogProps> = props => {
 	const [phone, clearPhone, phoneProps] = useField('phone', true);
 	const [submitError, setSubmitError] = useState<string>();
 	const [loading, setLoading] = useState<boolean>(false);
+	const t = useTranslation();
 
 	const clearForm = () => {
 		setSubmitError('');
@@ -94,28 +96,36 @@ const LogInDialog: FC<LogInDialogProps> = props => {
 				}}
 			>
 				<Typography variant="h4" component="h2" textAlign="center" mb={3}>
-					Sign In
+					{t('sign_in')}
 				</Typography>
-				<TextField label="Email" {...usernameProps} type="email" />
-				<TextField label="Password" {...passwordProps} type="password" />
+				<TextField label={t('email')} {...usernameProps} type="email" />
+				<TextField label={t('pwd')} {...passwordProps} type="password" />
 				{isSignUp && (
 					<>
-						<TextField label="Phone Number" {...phoneProps} type="tel" />
+						<TextField label={t('phone')} {...phoneProps} type="tel" />
 						<Grid container>
 							<Grid item md={9}>
 								<TextField
-									label="Street"
+									label={t('street')}
 									{...streetProps}
 									type="text"
 									sx={{ width: '90%' }}
 								/>
 							</Grid>
 							<Grid item md={3}>
-								<TextField label="Number" {...houseNumberProps} type="text" />
+								<TextField
+									label={t('number')}
+									{...houseNumberProps}
+									type="text"
+								/>
 							</Grid>
 						</Grid>
-						<TextField label="City" {...cityProps} type="text" />
-						<TextField label="Postal Code" {...postalCodeProps} type="text" />
+						<TextField label={t('city')} {...cityProps} type="text" />
+						<TextField
+							label={t('postal_code')}
+							{...postalCodeProps}
+							type="text"
+						/>
 					</>
 				)}
 				<Box
@@ -138,10 +148,10 @@ const LogInDialog: FC<LogInDialogProps> = props => {
 						</Typography>
 					)}
 					<Link href="#" onClick={() => setSignUp(!isSignUp)}>
-						{isSignUp ? 'LogIn' : 'SignUp'}
+						{isSignUp ? t('login') : t('signup')}
 					</Link>
 					<Button type="submit" variant="contained">
-						{isSignUp ? 'SignUp' : 'LogIn'}
+						{isSignUp ? t('signup') : t('login')}
 					</Button>
 				</Box>
 			</Paper>

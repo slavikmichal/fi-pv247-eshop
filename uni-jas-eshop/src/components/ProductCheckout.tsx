@@ -3,6 +3,7 @@ import { FC } from 'react';
 
 import useImage from '../hooks/useImage';
 import useProductInfo from '../hooks/useProductInfo';
+import { useTranslation } from '../hooks/useTranslation';
 import { BasketProduct, Product } from '../utils/firebase';
 
 type Props = {
@@ -12,6 +13,7 @@ type Props = {
 const ProductCheckout: FC<Props> = ({ bProduct }) => {
 	const product = useProductInfo(bProduct.product_id);
 	const imgUrl = useImage(bProduct.product_id);
+	const t = useTranslation();
 
 	return (
 		<Paper sx={{ paddingX: 4, paddingY: 1 }}>
@@ -45,7 +47,8 @@ const ProductCheckout: FC<Props> = ({ bProduct }) => {
 					}}
 				>
 					<Typography fontSize={20}>
-						Amount: {bProduct.amount}, Total:{' '}
+						{t('amount')}
+						{bProduct.amount}, {t('total')}
 						{bProduct.amount * (product?.['price-vat'] ?? 0)} €
 					</Typography>
 				</Grid>

@@ -8,6 +8,7 @@ import NumericInput from '../components/NumericInput';
 import useImage from '../hooks/useImage';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { useSetSnack } from '../hooks/useSnack';
+import { useTranslation } from '../hooks/useTranslation';
 import {
 	addProductToBasket,
 	Product,
@@ -23,6 +24,7 @@ const ProductPage = () => {
 	const user = useLoggedInUser();
 	const setSnackState = useSetSnack();
 	const imgUrl = useImage(id);
+	const t = useTranslation();
 
 	const product = products.find(p => p.id === id);
 
@@ -32,7 +34,7 @@ const ProductPage = () => {
 		setSnackState({
 			openInit: added,
 			severity: 'success',
-			text: 'Product was added to the basket',
+			text: t('product_added'),
 			onClose: () => setAdded(false)
 		});
 	}, [added]);
@@ -47,7 +49,7 @@ const ProductPage = () => {
 	}, []);
 
 	if (!product) {
-		return <Box>Product does not exist.</Box>;
+		return <Box>{t('product_not_exist')}</Box>;
 	}
 
 	return (
@@ -61,6 +63,7 @@ const ProductPage = () => {
 			</Grid>
 			<Grid item md={5}>
 				<Typography variant="h3" sx={{ marginBottom: 4 }}>
+					{/* TODO figure out names */}
 					{product['name-en']}
 				</Typography>
 				<Typography variant="h4">{product['price-vat']} €</Typography>
@@ -81,7 +84,7 @@ const ProductPage = () => {
 								}
 							}}
 						>
-							Add to basket
+							{t('add')}
 						</Button>
 					</Grid>
 				</Grid>
