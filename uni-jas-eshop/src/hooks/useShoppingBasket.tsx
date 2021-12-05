@@ -1,4 +1,3 @@
-import { StringLike } from '@firebase/util';
 import { onSnapshot, query, where } from 'firebase/firestore';
 import {
 	createContext,

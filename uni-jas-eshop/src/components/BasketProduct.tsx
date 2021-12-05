@@ -1,13 +1,9 @@
 import { Grid, IconButton, Paper, Typography } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import useLoggedInUser from '../hooks/useLoggedInUser';
-import {
-	getProduct,
-	Product,
-	removeProductFromBasket
-} from '../utils/firebase';
+import { removeProductFromBasket } from '../utils/firebase';
 import useImage from '../hooks/useImage';
 import useProductInfo from '../hooks/useProductInfo';
 

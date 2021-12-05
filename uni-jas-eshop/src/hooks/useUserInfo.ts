@@ -1,12 +1,7 @@
 import { getDoc } from '@firebase/firestore';
 import { useEffect, useState } from 'react';
 
-import {
-	getProduct,
-	Product,
-	UserInfo,
-	userInfoDocument
-} from '../utils/firebase';
+import { UserInfo, userInfoDocument } from '../utils/firebase';
 
 import useLoggedInUser from './useLoggedInUser';
 

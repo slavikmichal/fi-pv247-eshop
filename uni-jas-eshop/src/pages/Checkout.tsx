@@ -5,7 +5,6 @@ import {
 	FormControlLabel,
 	FormLabel,
 	Grid,
-	Paper,
 	Radio,
 	RadioGroup,
 	TextField,
@@ -16,7 +15,6 @@ import { onSnapshot } from 'firebase/firestore';
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import ProductCheckout from '../components/ProductCheckout';
-import Snack from '../components/Snack';
 import useField from '../hooks/useField';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import usePageTitle from '../hooks/usePageTitle';
@@ -34,14 +32,14 @@ const Checkout = () => {
 
 	const [products, setProducts] = useState<Product[]>([]);
 	const [deliveryAddress, setDeliveryAddress] = useState<string>('user');
-	const [payment, setPayment] = useState<string>('card');
-	const [city, clearCity, cityProps] = useField('city', true);
-	const [houseNumber, clearHouseNumber, houseNumberProps] = useField(
+	const [_payment, setPayment] = useState<string>('card');
+	const [_city, _clearCity, cityProps] = useField('city', true);
+	const [_houseNumber, _clearHouseNumber, houseNumberProps] = useField(
 		'houseNumber',
 		true
 	);
-	const [street, clearStreet, streetProps] = useField('streetNumber', true);
-	const [postalCode, clearPostalCode, postalCodeProps] = useField(
+	const [_street, _clearStreet, streetProps] = useField('streetNumber', true);
+	const [_postalCode, _clearPostalCode, postalCodeProps] = useField(
 		'postalCode',
 		true
 	);

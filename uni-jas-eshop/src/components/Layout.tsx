@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { AppBar, Container, Theme } from '@mui/material';
 
 import { useSnackState } from '../hooks/useSnack';
-import { lightTheme, darkTheme } from '../utils/theme';
 
 import Snack from './Snack';
 import MyToolbar from './MyToolbar';

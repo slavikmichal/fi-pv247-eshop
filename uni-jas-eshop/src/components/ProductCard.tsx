@@ -1,5 +1,3 @@
-import { getDownloadURL } from '@firebase/storage';
-import { SdCardAlert } from '@mui/icons-material';
 import {
 	Box,
 	Card,

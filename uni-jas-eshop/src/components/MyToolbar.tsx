@@ -23,7 +23,7 @@ type Props = {
 	setTheme: React.Dispatch<React.SetStateAction<Theme>>;
 };
 
-const MyToolbar: FC<Props> = ({ setTheme, children }) => {
+const MyToolbar: FC<Props> = ({ setTheme }) => {
 	const theme = useTheme();
 	const user = useLoggedInUser();
 	const t = useTranslation();

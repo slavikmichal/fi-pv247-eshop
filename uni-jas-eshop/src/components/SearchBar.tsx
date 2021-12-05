@@ -1,6 +1,6 @@
 import { Grid, IconButton, InputBase, Paper, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import useProducts from '../hooks/useProducts';
 import { useLanguage } from '../hooks/useTranslation';

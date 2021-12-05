@@ -1,10 +1,10 @@
-import { Grid, IconButton, Paper, Typography } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import { FC } from 'react';
 
 import useImage from '../hooks/useImage';
 import useProductInfo from '../hooks/useProductInfo';
 import { useTranslation } from '../hooks/useTranslation';
-import { BasketProduct, Product } from '../utils/firebase';
+import { BasketProduct } from '../utils/firebase';
 
 type Props = {
 	bProduct: BasketProduct;
