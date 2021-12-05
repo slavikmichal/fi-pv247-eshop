@@ -48,5 +48,5 @@ export default {
 	en: 'Angličtina',
 	sk: 'Slovenčina',
 	product: 'Produkt detail',
-	prices_info: 'Prihlíste sa pre zobrazenie ceny'
+	prices_info: 'Prosím, prihláste sa pre zobrazenie ceny'
 };

@@ -67,7 +67,6 @@ const ProductPage = () => {
 			</Grid>
 			<Grid item md={5}>
 				<Typography variant="h3" sx={{ marginBottom: 4 }}>
-					{/* TODO figure out names */}
 					{lang === 'en' ? product['name-en'] : product['name-sk']}
 				</Typography>
 				{user ? (
@@ -101,9 +100,8 @@ const ProductPage = () => {
 						</Grid>
 					</>
 				) : (
-					<Typography>Please log in to see prices</Typography>
+					<Typography>{t('prices_info')}</Typography>
 				)}
-				{/* <Typography variant="body1">{product.description}</Typography> */}
 			</Grid>
 		</Grid>
 	);

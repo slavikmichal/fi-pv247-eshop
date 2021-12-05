@@ -34,7 +34,7 @@ export const BasketProvider: FC = ({ children }) => {
 
 	return (
 		<BasketContext.Provider value={basketState}>
-			{children};
+			{children}
 		</BasketContext.Provider>
 	);
 };

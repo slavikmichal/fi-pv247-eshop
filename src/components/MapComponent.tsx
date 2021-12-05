@@ -12,7 +12,6 @@ const MapComponent: FC = () => {
 	const t = useTranslation();
 
 	return (
-		// <ZoomableGroup center={[48, 18]} zoom={3} minZoom={1} maxZoom={20} />
 		<ComposableMap
 			projection="geoAzimuthalEqualArea"
 			projectionConfig={{

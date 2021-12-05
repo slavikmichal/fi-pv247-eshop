@@ -18,13 +18,12 @@ const UserContext = createContext<UserState>(undefined as never);
 export const UserProvider: FC = ({ children }) => {
 	const userState = useState<User>();
 
-	// Setup onAuthChanged once when component is mounted
 	useEffect(() => {
 		onAuthChanged(u => userState[1](u ?? undefined));
 	}, []);
 
 	return (
-		<UserContext.Provider value={userState}>{children};</UserContext.Provider>
+		<UserContext.Provider value={userState}>{children}</UserContext.Provider>
 	);
 };
 

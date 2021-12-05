@@ -20,7 +20,6 @@ import {
 } from 'firebase/firestore';
 
 // Initialize Firebase
-//database id?
 initializeApp({
 	apiKey: 'AIzaSyAX8oyBC10r_ID77XqsU7x1HuheE9YID-w',
 	authDomain: 'uni-jas.firebaseapp.com',

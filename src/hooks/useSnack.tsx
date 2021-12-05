@@ -22,9 +22,7 @@ export const SnackProvider: FC = ({ children }) => {
 	const snackState = useState<SnackState>();
 
 	return (
-		<SnackContext.Provider value={snackState}>
-			{children};
-		</SnackContext.Provider>
+		<SnackContext.Provider value={snackState}>{children}</SnackContext.Provider>
 	);
 };
 
